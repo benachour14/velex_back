@@ -1,0 +1,21 @@
+meta {
+  name: updateClub
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:4000/clubs/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "name": "Updated Club Name"
+  }
+}
