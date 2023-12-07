@@ -18,17 +18,20 @@ model User {
 }
 
 model Club {
-  id          Int          @id @default(autoincrement())
-  name        String
-  phoneNumber String?     
-  city        String       
-  address     String?      
-  description String?      
-  website     String?      
-  events      Event[]
-  users       UserClub[]
-  articles    Article[]
+  id            Int          @id @default(autoincrement())
+  name          String
+  phoneNumber   String?     
+  city          String       
+  address       String?      
+  description   String?      
+  website       String?      
+  ascoNumber    String?      
+  postalCode    String?      
+  events        Event[]
+  users         UserClub[]
+  articles      Article[]
 }
+
 model Event {
   id          Int             @id @default(autoincrement())
   name        String

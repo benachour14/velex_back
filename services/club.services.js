@@ -1,10 +1,8 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-
-// Fonction pour créer un nouveau club
 // Fonction pour créer un nouveau club
 exports.createClub = async (req, res) => {
-  const { name, phoneNumber, city, address, description, website } = req.body;
+  const { name, phoneNumber, city, address, description, website, postalCode, assoNumber } = req.body;
   const userId = req.user.userId; 
 
   const club = await prisma.club.create({
@@ -15,6 +13,8 @@ exports.createClub = async (req, res) => {
       address,
       description,
       website,
+      postalCode, // Ajout du champ postalCode
+      assoNumber, // Ajout du champ assoNumber
       users: {
         create: {
           joinDate: new Date(),
@@ -35,7 +35,7 @@ exports.createClub = async (req, res) => {
 // Fonction pour mettre à jour un club
 exports.updateClub = async (req, res) => {
   const { id } = req.params;
-  const { name, phoneNumber, city, address, description, website } = req.body;
+  const { name, phoneNumber, city, address, description, website, postalCode, assoNumber } = req.body;
 
   const club = await prisma.club.findUnique({ where: { id: Number(id) } });
   if (!club) return res.status(404).json({ error: 'Club not found' });
@@ -48,7 +48,9 @@ exports.updateClub = async (req, res) => {
       city,
       address,
       description,
-      website
+      website,
+      postalCode, // Ajout du champ postalCode
+      assoNumber, // Ajout du champ assoNumber
     },
   });
 
