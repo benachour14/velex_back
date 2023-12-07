@@ -103,20 +103,29 @@ const deleteUserClub = async (req, res) => {
 // Fonction pour obtenir tous les clubs d'un utilisateur spécifique
 const getUserClubs = async (req, res) => {
     const { userId } = req.params;
-    console.log(userId);
-
+  
     try {
-        const userClubs = await prisma.userClub.findMany({
-            where: {
-                userId: Number(userId),
-            },
-        });
-
-        res.status(200).json(userClubs);
+      const userClubs = await prisma.userClub.findMany({
+        where: {
+          userId: Number(userId),
+        },
+      });
+  
+      const clubIds = userClubs.map(userClub => userClub.clubId);
+  
+      const clubs = await prisma.club.findMany({
+        where: {
+          id: {
+            in: clubIds,
+          },
+        },
+      });
+  
+      res.status(200).json(clubs);
     } catch (error) {
-        res.status(400).json({ error: 'Something went wrong' });
+      res.status(400).json({ error: 'Something went wrong' });
     }
-};
+  };
 
 // Fonction pour obtenir tous les utilisateurs d'un club spécifique
 const getClubUsers = async (req, res) => {
