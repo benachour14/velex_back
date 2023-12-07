@@ -37,7 +37,7 @@ model Event {
   name        String
   startDate   DateTime
   endDate     DateTime
-  places      Int
+  places      String
   address     String?         
   city        String?         
   country     String?         
