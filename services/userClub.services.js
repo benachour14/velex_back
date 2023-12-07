@@ -3,20 +3,21 @@ const prisma = new PrismaClient();
 
 // Fonction pour créer une nouvelle association UserClub
 const createUserClub = async (req, res) => {
-    const { userId, clubId, joinDate, role } = req.body;
+    const { userId, clubId,  role } = req.body;
 
     try {
         const userClub = await prisma.userClub.create({
             data: {
                 userId,
                 clubId,
-                joinDate,
+                joinDate: new Date(),
                 role
             },
         });
 
         res.status(201).json(userClub);
     } catch (error) {
+        console.log(error);
         res.status(400).json({ error: 'Something went wrong' });
     }
 };
@@ -58,7 +59,7 @@ const getUserClub = async (req, res) => {
 // Fonction pour mettre à jour une association UserClub spécifique
 const updateUserClub = async (req, res) => {
     const { userId, clubId } = req.params;
-    const { joinDate, role } = req.body;
+    const { role } = req.body;
 
     try {
         const userClub = await prisma.userClub.update({
@@ -69,7 +70,6 @@ const updateUserClub = async (req, res) => {
                 }
             },
             data: {
-                joinDate,
                 role
             }
         });
@@ -100,6 +100,41 @@ const deleteUserClub = async (req, res) => {
     }
 };
 
+// Fonction pour obtenir tous les clubs d'un utilisateur spécifique
+const getUserClubs = async (req, res) => {
+    const { userId } = req.params;
+    console.log(userId);
+
+    try {
+        const userClubs = await prisma.userClub.findMany({
+            where: {
+                userId: Number(userId),
+            },
+        });
+
+        res.status(200).json(userClubs);
+    } catch (error) {
+        res.status(400).json({ error: 'Something went wrong' });
+    }
+};
+
+// Fonction pour obtenir tous les utilisateurs d'un club spécifique
+const getClubUsers = async (req, res) => {
+    const { clubId } = req.params;
+    console.log(clubId);
+    try {
+        const clubUsers = await prisma.userClub.findMany({
+            where: {
+                clubId: Number(clubId),
+            },
+        });
+
+        res.status(200).json(clubUsers);
+    } catch (error) {
+        res.status(400).json({ error: 'Something went wrong' });
+    }
+};
+
 // Exportez vos fonctions
 module.exports = {
     createUserClub,
@@ -107,4 +142,6 @@ module.exports = {
     getUserClub,
     updateUserClub,
     deleteUserClub,
+    getUserClubs,
+    getClubUsers,
 };
