@@ -18,23 +18,28 @@ model User {
 }
 
 model Club {
-  id       Int        @id @default(autoincrement())
-  name     String
-  events   Event[]
-  users    UserClub[]
-  articles Article[]
+  id          Int          @id @default(autoincrement())
+  name        String
+  phoneNumber String?     
+  city        String       
+  address     String?      
+  description String?      
+  website     String?      
+  events      Event[]
+  users       UserClub[]
+  articles    Article[]
 }
-
 model Event {
-  id        Int             @id @default(autoincrement())
-  name      String
-  startDate DateTime
-  endDate   DateTime
-  places    String
-  clubId    Int
-  club      Club            @relation(fields: [clubId], references: [id])
-  articles  Article[]
-  users     Participation[]
+  id          Int             @id @default(autoincrement())
+  name        String
+  startDate   DateTime
+  endDate     DateTime
+  places      String
+  clubId      Int
+  club        Club            @relation(fields: [clubId], references: [id])
+  articles    Article[]
+  users       Participation[]
+  description String?       
 }
 
 model UserClub {

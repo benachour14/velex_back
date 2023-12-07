@@ -10,7 +10,12 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Club" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "name" TEXT NOT NULL
+    "name" TEXT NOT NULL,
+    "phoneNumber" TEXT,
+    "city" TEXT NOT NULL,
+    "address" TEXT,
+    "description" TEXT,
+    "website" TEXT
 );
 
 -- CreateTable
@@ -21,6 +26,7 @@ CREATE TABLE "Event" (
     "endDate" DATETIME NOT NULL,
     "places" TEXT NOT NULL,
     "clubId" INTEGER NOT NULL,
+    "description" TEXT,
     CONSTRAINT "Event_clubId_fkey" FOREIGN KEY ("clubId") REFERENCES "Club" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
