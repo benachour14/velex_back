@@ -5,12 +5,11 @@ const eventRoutes = require('./routes/event.route');
 const clubRoutes = require('./routes/club.route');
 const participationRoutes = require('./routes/participation.route');
 const userClubRoutes = require('./routes/userClub.route');
-
-
+const cors = require('cors');
 
 const app = express();
 const port = 4000;
-
+app.use(cors());
 app.use(express.json());
 
 app.use('/users', userRoutes);

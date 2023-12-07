@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 // Fonction pour créer un nouvel utilisateur
 exports.createUser = async (req, res) => {
   const { name, email, role, password } = req.body;
-
+  console.log(req.body);
   // Hash the password
   const hashedPassword = await bcrypt.hash(password, 10);
 
