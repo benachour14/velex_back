@@ -50,7 +50,18 @@ const deleteEvent = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-  const { name, startDate, endDate, places, clubId, description } = req.body;
+  const {
+    name,
+    startDate,
+    endDate,
+    places,
+    address,
+    city,
+    country,
+    eventType,
+    clubId,
+    description,
+  } = req.body;
 
   try {
     const event = await prisma.event.create({
@@ -59,8 +70,12 @@ const createEvent = async (req, res) => {
         startDate,
         endDate,
         places,
+        address, // Ajout du champ address
+        city, // Ajout du champ city
+        country, // Ajout du champ country
+        eventType, // Ajout du champ eventType
         clubId,
-        description, // Ajout du champ description
+        description,
       },
     });
 
@@ -71,12 +86,20 @@ const createEvent = async (req, res) => {
   }
 };
 
-// ...
-
-// Fonction pour mettre à jour un événement spécifique
 const updateEvent = async (req, res) => {
   const { id } = req.params;
-  const { name, startDate, endDate, places, clubId, description } = req.body;
+  const {
+    name,
+    startDate,
+    endDate,
+    places,
+    address,
+    city,
+    country,
+    eventType,
+    clubId,
+    description,
+  } = req.body;
 
   try {
     const event = await prisma.event.update({
@@ -88,8 +111,12 @@ const updateEvent = async (req, res) => {
         startDate,
         endDate,
         places,
+        address, // Ajout du champ address
+        city, // Ajout du champ city
+        country, // Ajout du champ country
+        eventType, // Ajout du champ eventType
         clubId,
-        description, // Ajout du champ description
+        description,
       },
     });
 
@@ -99,7 +126,6 @@ const updateEvent = async (req, res) => {
     res.status(400).json({ error: "Something went wrong" });
   }
 };
-
 // Exportez vos fonctions
 module.exports = {
   createEvent,

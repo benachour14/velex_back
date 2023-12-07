@@ -35,6 +35,10 @@ model Event {
   startDate   DateTime
   endDate     DateTime
   places      String
+  address     String?         
+  city        String?         
+  country     String?         
+  eventType   String?        
   clubId      Int
   club        Club            @relation(fields: [clubId], references: [id])
   articles    Article[]

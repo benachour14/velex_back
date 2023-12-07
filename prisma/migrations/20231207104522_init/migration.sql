@@ -25,6 +25,10 @@ CREATE TABLE "Event" (
     "startDate" DATETIME NOT NULL,
     "endDate" DATETIME NOT NULL,
     "places" TEXT NOT NULL,
+    "address" TEXT,
+    "city" TEXT,
+    "country" TEXT,
+    "eventType" TEXT,
     "clubId" INTEGER NOT NULL,
     "description" TEXT,
     CONSTRAINT "Event_clubId_fkey" FOREIGN KEY ("clubId") REFERENCES "Club" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
