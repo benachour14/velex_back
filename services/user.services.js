@@ -21,7 +21,7 @@ exports.createUser = async (req, res) => {
   });
 
   // Générer un JWT
-  const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
   // Envoyer le JWT dans la réponse
   res.json({ user, token });
@@ -88,7 +88,7 @@ exports.loginUser = async (req, res) => {
   if (!validPassword) return res.status(400).json({ error: 'Mot de passe incorrect' });
 
   // Générer un JWT
-  const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
   // Envoyer le JWT dans la réponse
   res.json({ user, token });
