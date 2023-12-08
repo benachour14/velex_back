@@ -111,10 +111,10 @@ const updateEvent = async (req, res) => {
         startDate,
         endDate,
         places,
-        address, // Ajout du champ address
-        city, // Ajout du champ city
-        country, // Ajout du champ country
-        eventType, // Ajout du champ eventType
+        address, 
+        city, 
+        country,
+        eventType,
         clubId,
         description,
       },

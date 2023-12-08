@@ -13,8 +13,8 @@ exports.createClub = async (req, res) => {
       address,
       description,
       website,
-      postalCode, // Ajout du champ postalCode
-      assoNumber, // Ajout du champ assoNumber
+      postalCode, 
+      assoNumber, 
       users: {
         create: {
           joinDate: new Date(),
@@ -49,8 +49,8 @@ exports.updateClub = async (req, res) => {
       address,
       description,
       website,
-      postalCode, // Ajout du champ postalCode
-      assoNumber, // Ajout du champ assoNumber
+      postalCode, 
+      assoNumber, 
     },
   });
 

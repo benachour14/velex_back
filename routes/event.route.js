@@ -4,7 +4,7 @@ const eventsController = require("../services/event.services");
 const router = express.Router();
 
 router.post("/", verifyToken, eventsController.createEvent);
-router.get("/", verifyToken, eventsController.getAllEvents);
+router.get("/",  eventsController.getAllEvents);
 router.get("/:id", verifyToken, eventsController.getEvent);
 router.put("/:id", verifyToken, eventsController.updateEvent);
 router.delete("/:id", verifyToken, eventsController.deleteEvent);
