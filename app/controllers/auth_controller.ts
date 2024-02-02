@@ -1,6 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import User from '#models/user'
-import { authValidator } from '#validators/auth_validator'
+import { authValidator, loginValidator } from '#validators/auth_validator'
 
 export default class AuthController {
   /**
@@ -23,7 +23,23 @@ export default class AuthController {
   /**
    * login user
    */
-  async login({ params }: HttpContext) {}
+
+  async login({ auth, request }: HttpContext) {
+    const data = request.all()
+    const payload = await loginValidator.validate(data)
+    const user = await User.verifyCredentials(payload.email, payload.password)
+
+    if (!user) {
+      return { error: 'Invalid credentials' }
+    }
+
+    const token = await User.accessTokens.create(user)
+
+    return {
+      type: 'bearer',
+      value: token.value!.release(),
+    }
+  }
 
   /**
    * Edit individual record
