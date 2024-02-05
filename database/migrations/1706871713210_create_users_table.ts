@@ -13,6 +13,7 @@ export default class extends BaseSchema {
         .enu('role', ['USER', 'ADMIN'], {
           useNative: true,
           enumName: 'user_account',
+          existingType: false,
         })
         .notNullable()
         .defaultTo('USER')
@@ -23,6 +24,8 @@ export default class extends BaseSchema {
   }
 
   async down() {
+    this.schema.raw('DROP TYPE IF EXISTS "user_account"')
     this.schema.dropTable(this.tableName)
+
   }
 }
