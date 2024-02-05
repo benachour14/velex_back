@@ -1,8 +1,38 @@
 {
-  "client": "Thunder Client",
-  "collectionName": "thunder",
-  "dateExported": "2024-02-05T18:44:32.700Z",
-  "version": "1.1",
-  "folders": [],
-  "requests": []
+    "client": "Thunder Client",
+    "collectionName": "thunder",
+    "dateExported": "2024-02-05T18:56:40.185Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "4c91147e-5d09-491d-a523-66a726a3b60a",
+            "colId": "11c36bab-b77c-4fe4-9194-b344ed8e6df9",
+            "containerId": "",
+            "name": "login",
+            "url": "http://localhost:4000/api/auth/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-02-05T18:45:04.153Z",
+            "modified": "2024-02-05T18:48:39.316Z",
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\t\"email\":\"test@idl.com\",\n\t\"password\":\"1dqsddsqdqsd\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
 }
