@@ -9,6 +9,7 @@
 import router from '@adonisjs/core/services/router'
 import AuthController from 'App/Controllers/Http/AuthController'
 import authRoutes from './auth_routes.js'
+import clubRoutes from './club_routes.js'
 
 router
   .group(() => {
@@ -17,7 +18,7 @@ router
         hello: 'world',
       }
     })
-
+    clubRoutes()
     authRoutes()
   })
   .prefix('api')
