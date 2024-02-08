@@ -1,20 +1,42 @@
 {
     "client": "Thunder Client",
     "collectionName": "thunder",
-    "dateExported": "2024-02-05T18:56:40.185Z",
+    "dateExported": "2024-02-08T16:00:10.584Z",
     "version": "1.1",
-    "folders": [],
+    "folders": [
+        {
+            "_id": "ac001894-7496-4ce8-9e46-3a3363b68a5f",
+            "name": "auth",
+            "containerId": "",
+            "created": "2024-02-08T15:01:44.853Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "6b7ead32-bbb7-4c18-a0a2-18d936e0db9f",
+            "name": "club",
+            "containerId": "",
+            "created": "2024-02-08T15:02:38.562Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "8bb70155-e6db-47e0-8d07-6707e2768328",
+            "name": "user",
+            "containerId": "",
+            "created": "2024-02-08T15:26:43.664Z",
+            "sortNum": 30000
+        }
+    ],
     "requests": [
         {
-            "_id": "4c91147e-5d09-491d-a523-66a726a3b60a",
-            "colId": "11c36bab-b77c-4fe4-9194-b344ed8e6df9",
-            "containerId": "",
+            "_id": "fa98755f-309e-4cb5-81b3-dd0883923169",
+            "colId": "5fba9d25-14dc-4353-a10a-d7c5e1efb833",
+            "containerId": "ac001894-7496-4ce8-9e46-3a3363b68a5f",
             "name": "login",
-            "url": "http://localhost:4000/api/auth/login",
+            "url": "/auth/login",
             "method": "POST",
             "sortNum": 10000,
-            "created": "2024-02-05T18:45:04.153Z",
-            "modified": "2024-02-05T18:48:39.316Z",
+            "created": "2024-02-08T14:51:27.102Z",
+            "modified": "2024-02-08T15:01:18.345Z",
             "headers": [
                 {
                     "name": "User-Agent",
@@ -33,6 +55,116 @@
                 "form": []
             },
             "tests": []
+        },
+        {
+            "_id": "424c0a6a-6c00-445d-9867-b75397ca4364",
+            "colId": "5fba9d25-14dc-4353-a10a-d7c5e1efb833",
+            "containerId": "ac001894-7496-4ce8-9e46-3a3363b68a5f",
+            "name": "register",
+            "url": "/auth/register",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-02-08T14:53:00.724Z",
+            "modified": "2024-02-08T15:58:33.797Z",
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"fullName\":\"beber\",\n\t\"email\":\"test@id.com\",\n\t\"password\":\"1dqsddsqdqsd\",\n\t\"password_confirmation\":\"1dqsddsqdqsd\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0b921f90-af27-462c-b99d-79fe0eca0190",
+            "colId": "5fba9d25-14dc-4353-a10a-d7c5e1efb833",
+            "containerId": "6b7ead32-bbb7-4c18-a0a2-18d936e0db9f",
+            "name": "list of club",
+            "url": "/clubs",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-02-08T15:02:57.867Z",
+            "modified": "2024-02-08T15:04:18.135Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "402e2d76-abca-448b-b556-84f71672626b",
+            "colId": "5fba9d25-14dc-4353-a10a-d7c5e1efb833",
+            "containerId": "6b7ead32-bbb7-4c18-a0a2-18d936e0db9f",
+            "name": "getClub",
+            "url": "",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-02-08T15:03:06.099Z",
+            "modified": "2024-02-08T15:03:06.099Z",
+            "headers": []
+        },
+        {
+            "_id": "3edca746-1809-4b91-bafb-880727600125",
+            "colId": "5fba9d25-14dc-4353-a10a-d7c5e1efb833",
+            "containerId": "6b7ead32-bbb7-4c18-a0a2-18d936e0db9f",
+            "name": "add new club",
+            "url": "",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-02-08T15:03:25.894Z",
+            "modified": "2024-02-08T15:03:25.894Z",
+            "headers": []
+        },
+        {
+            "_id": "b611f024-b340-4368-bc4e-375ced592515",
+            "colId": "5fba9d25-14dc-4353-a10a-d7c5e1efb833",
+            "containerId": "6b7ead32-bbb7-4c18-a0a2-18d936e0db9f",
+            "name": "modify a club",
+            "url": "",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-02-08T15:03:43.707Z",
+            "modified": "2024-02-08T15:03:43.707Z",
+            "headers": []
+        },
+        {
+            "_id": "46f50779-5d9c-4883-94a5-8d76ddd028b7",
+            "colId": "5fba9d25-14dc-4353-a10a-d7c5e1efb833",
+            "containerId": "6b7ead32-bbb7-4c18-a0a2-18d936e0db9f",
+            "name": "delete a club ",
+            "url": "",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-02-08T15:03:48.741Z",
+            "modified": "2024-02-08T15:03:48.741Z",
+            "headers": []
+        },
+        {
+            "_id": "253b047e-f152-427f-b7eb-2b60fb3a4ba2",
+            "colId": "5fba9d25-14dc-4353-a10a-d7c5e1efb833",
+            "containerId": "8bb70155-e6db-47e0-8d07-6707e2768328",
+            "name": "all user",
+            "url": "/users",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-02-08T15:26:52.338Z",
+            "modified": "2024-02-08T15:27:00.674Z",
+            "headers": [],
+            "params": [],
+            "tests": []
         }
-    ]
+    ],
+    "settings": {
+        "options": {
+            "baseUrl": "http://localhost:4000/api"
+        }
+    }
 }
