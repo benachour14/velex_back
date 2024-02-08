@@ -37,6 +37,7 @@ export default defineConfig({
     () => import('@adonisjs/auth/auth_provider'),
     () => import('@adonisjs/bouncer/bouncer_provider'),
     () => import('@adonisjs/lucid/database_provider'),
+    () => import('#providers/app_provider')
   ],
 
   /*

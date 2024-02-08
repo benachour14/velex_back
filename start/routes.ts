@@ -9,6 +9,7 @@
 import router from '@adonisjs/core/services/router'
 import authRoutes from './auth_routes.js'
 import clubRoutes from './club_routes.js'
+import UsersController from '#controllers/users_controller'
 
 router
   .group(() => {
@@ -17,6 +18,7 @@ router
         hello: 'world',
       }
     })
+    router.get('/users', [UsersController, 'index'])
     clubRoutes()
     authRoutes()
   })
