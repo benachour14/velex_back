@@ -36,6 +36,26 @@ export default class UserService {
             value: token.value!.release(),
         }
     }
+
+    async updateUserById(id: number, data: any) {
+        const user = await User.find(id);
+        user?.merge(data);
+        return await user?.save();
+    }
+
+    async deleteUserById(id: number) {
+        const user = await User.find(id);
+        return await user?.delete();
+    }
+
+    async getUserById(id: number) {
+        try {
+            return await User.find(id);
+        } catch (error) {
+            throw new Error('User not found');
+        }
+
+    }
     async getAllUsers() {
 
         return await User.all();
