@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "thunder",
-    "dateExported": "2024-02-08T16:00:10.584Z",
+    "dateExported": "2024-02-09T11:16:49.843Z",
     "version": "1.1",
     "folders": [
         {
@@ -65,7 +65,7 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2024-02-08T14:53:00.724Z",
-            "modified": "2024-02-08T15:58:33.797Z",
+            "modified": "2024-02-09T11:11:40.580Z",
             "headers": [
                 {
                     "name": "User-Agent",
@@ -80,7 +80,7 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"fullName\":\"beber\",\n\t\"email\":\"test@id.com\",\n\t\"password\":\"1dqsddsqdqsd\",\n\t\"password_confirmation\":\"1dqsddsqdqsd\"\n}",
+                "raw": "{\n  \"fullName\":\"bobo\",\n\t\"email\":\"toto@id.com\",\n\t\"password\":\"1dqsddsqdqsd\",\n\t\"password_confirmation\":\"1dqsddsqdqsd\"\n}",
                 "form": []
             },
             "tests": []
@@ -159,6 +159,53 @@
             "modified": "2024-02-08T15:27:00.674Z",
             "headers": [],
             "params": [],
+            "tests": []
+        },
+        {
+            "_id": "eb7a6ff5-a3e5-4882-a353-97eafc698c2e",
+            "colId": "5fba9d25-14dc-4353-a10a-d7c5e1efb833",
+            "containerId": "8bb70155-e6db-47e0-8d07-6707e2768328",
+            "name": "show user",
+            "url": "/users/4",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-02-09T11:05:30.545Z",
+            "modified": "2024-02-09T11:13:43.979Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "8480bd4c-c18d-4686-9915-530154ab64ea",
+            "colId": "5fba9d25-14dc-4353-a10a-d7c5e1efb833",
+            "containerId": "8bb70155-e6db-47e0-8d07-6707e2768328",
+            "name": "delete user",
+            "url": "/users/4",
+            "method": "DELETE",
+            "sortNum": 85000,
+            "created": "2024-02-09T11:12:38.695Z",
+            "modified": "2024-02-09T11:13:51.127Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "1d1e3834-91b9-40df-8c51-d4f02c43810e",
+            "colId": "5fba9d25-14dc-4353-a10a-d7c5e1efb833",
+            "containerId": "8bb70155-e6db-47e0-8d07-6707e2768328",
+            "name": "update user",
+            "url": "/users/4",
+            "method": "PUT",
+            "sortNum": 90000,
+            "created": "2024-02-09T11:10:29.870Z",
+            "modified": "2024-02-09T11:12:25.851Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"fullName\": \"bibi\",\n  \"email\": \"toto@id.com\",\n  \"password\": \"$scrypt$n=16384,r=8,p=1$jk8QfPrrRds11aR9mjih3g$xRNYckh1dotdtNI8oqS9N0EASp9DN3J7GvPjo3vk3MXCM+63PJ5ZGVauHoMA/lwNPmz/yxgL9Usq2g6/qfg0Tw\"\n}",
+                "form": []
+            },
             "tests": []
         }
     ],
