@@ -7,9 +7,6 @@ import type { HttpContext } from '@adonisjs/core/http'
 export default class ClubsController {
   constructor(protected clubService: ClubService) {}
 
-  /**
-   * Show all clubs
-   */
   async index({}: HttpContext) {
     try {
       const clubs = await this.clubService.getAllClubs()
@@ -19,9 +16,6 @@ export default class ClubsController {
     }
   }
 
-  /**
-   * Show individual club
-   */
   async show({ params }: HttpContext) {
     try {
       const club = await this.clubService.getClubById(params.id)
@@ -30,10 +24,6 @@ export default class ClubsController {
       return { error: error }
     }
   }
-
-  /**
-   * Create new club
-   */
   async create({ request }: HttpContext) {
     const data = request.all()
     const payload = await clubValidator.validate(data)
@@ -46,21 +36,6 @@ export default class ClubsController {
     }
   }
 
-  /**
-   * Edit individual record
-   */
-  async edit({ params }: HttpContext) {
-    try {
-      const club = await this.clubService.getClubById(params.id)
-      return club
-    } catch (error) {
-      return { error: error }
-    }
-  }
-
-  /**
-   * Handle form submission for the edit action
-   */
   async update({ params, request }: HttpContext) {
     const data = request.all()
     const payload = await clubValidator.validate(data)
@@ -73,9 +48,6 @@ export default class ClubsController {
     }
   }
 
-  /**
-   * Delete record
-   */
   async destroy({ params }: HttpContext) {
     try {
       await this.clubService.deleteClubById(params.id)

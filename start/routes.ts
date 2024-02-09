@@ -10,7 +10,7 @@ import router from '@adonisjs/core/services/router'
 import authRoutes from './auth_routes.js'
 import clubRoutes from './club_routes.js'
 import userRoutes from './user_routes.js'
-import UsersController from '#controllers/users_controller'
+const UsersController = () => import('#controllers/users_controller')
 
 router
   .group(() => {
