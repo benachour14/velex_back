@@ -3,10 +3,9 @@ import { authValidator, loginValidator } from '#validators/auth_validator'
 import UserService from '#services/user_service'
 import { inject } from '@adonisjs/core'
 
-
 @inject()
 export default class AuthController {
-  constructor(protected userService: UserService) { }
+  constructor(protected userService: UserService) {}
 
   /**
    * register new user
@@ -21,7 +20,6 @@ export default class AuthController {
     } catch (error) {
       return { error: error }
     }
-
   }
 
   /**
@@ -38,21 +36,20 @@ export default class AuthController {
     } catch (error) {
       return { error: error }
     }
-
   }
 
   /**
    * Edit individual record
    */
-  async edit({ params }: HttpContext) { }
+  async edit({ params }: HttpContext) {}
 
   /**
    * Handle form submission for the edit action
    */
-  async update({ params, request }: HttpContext) { }
+  async update({ params, request }: HttpContext) {}
 
   /**
    * Delete record
    */
-  async destroy({ params }: HttpContext) { }
+  async destroy({ params }: HttpContext) {}
 }
