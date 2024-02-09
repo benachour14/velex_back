@@ -1,4 +1,3 @@
-import Club from '#models/club'
 import ClubService from '#services/club_service'
 import { clubValidator } from '#validators/club_validator'
 import { inject } from '@adonisjs/core'
@@ -7,20 +6,29 @@ import type { HttpContext } from '@adonisjs/core/http'
 inject()
 export default class ClubsController {
   constructor(protected clubService: ClubService) {}
+
   /**
    * Show all clubs
    */
   async index({}: HttpContext) {
-    const clubs = await this.clubService.getAllClubs()
-    return clubs
+    try {
+      const clubs = await this.clubService.getAllClubs()
+      return clubs
+    } catch (error) {
+      return { error: error }
+    }
   }
 
   /**
    * Show individual club
    */
   async show({ params }: HttpContext) {
-    const club = await this.clubService.getClubById(params.id)
-    return club
+    try {
+      const club = await this.clubService.getClubById(params.id)
+      return club
+    } catch (error) {
+      return { error: error }
+    }
   }
 
   /**
@@ -29,18 +37,15 @@ export default class ClubsController {
   async create({ request }: HttpContext) {
     const data = request.all()
     const payload = await clubValidator.validate(data)
+
     try {
       const club = await this.clubService.createClub(payload)
-
       return club
     } catch (error) {
       return { error: error }
     }
   }
 
-  /**
-   * Edit individual record
-   */
   /**
    * Edit individual record
    */

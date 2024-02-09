@@ -11,33 +11,70 @@ export default class ClubService {
       return club
     } catch (error) {
       if (error.code === '23505') {
-        return { error: 'Club already exists' }
-      } else return { error: error }
+        throw new Error('Club already exists')
+      } else {
+        throw error
+      }
     }
   }
 
   async getAllClubs() {
-    return await Club.all()
+    try {
+      const clubs = await Club.all()
+      return clubs
+    } catch (error) {
+      throw error
+    }
   }
 
   async getClubById(id: number) {
-    return await Club.find(id)
+    try {
+      const club = await Club.find(id)
+      return club
+    } catch (error) {
+      throw error
+    }
   }
 
   async updateClubById(id: number, data: any) {
-    const club = await Club.find(id)
-    club?.merge(data)
-    return await club?.save()
+    try {
+      const club = await Club.find(id)
+      if (club) {
+        club.merge(data)
+        await club.save()
+        return club
+      } else {
+        throw new Error('Club not found')
+      }
+    } catch (error) {
+      throw error
+    }
   }
 
   async deleteClubById(id: number) {
-    const club = await Club.find(id)
-    return await club?.delete()
+    try {
+      const club = await Club.find(id)
+      if (club) {
+        await club.delete()
+      } else {
+        throw new Error('Club not found')
+      }
+    } catch (error) {
+      throw error
+    }
   }
 
-  async addMenberToClub(clubId: number, userId: number) {
-    /*  const club = await Club.find(clubId);
-         club?.related('members').attach([userId]);
-         return club; */
+  async addMemberToClub(clubId: number, userId: number) {
+    /*    try {
+      const club = await Club.find(clubId)
+      if (club) {
+        await club.related('members').attach([userId])
+        return club
+      } else {
+        throw new Error('Club not found')
+      }
+    } catch (error) {
+      throw error
+    } */
   }
 }
