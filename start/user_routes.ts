@@ -1,5 +1,6 @@
 import router from '@adonisjs/core/services/router'
 import UsersController from '#controllers/users_controller'
+import { middleware } from '#start/kernel'
 
 export default function authRoutes() {
     router
@@ -9,5 +10,8 @@ export default function authRoutes() {
             router.delete('/:id', [UsersController, 'delete']) // register new user
 
         })
+        .use(middleware.auth({
+            guards: ['api']
+        }))
         .prefix('/users')
 }
