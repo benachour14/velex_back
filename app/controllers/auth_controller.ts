@@ -5,7 +5,7 @@ import { inject } from '@adonisjs/core'
 
 @inject()
 export default class AuthController {
-  constructor(protected userService: UserService) { }
+  constructor(protected userService: UserService) {}
 
   /**
    * register new user
@@ -37,5 +37,4 @@ export default class AuthController {
       return { error: error }
     }
   }
-
 }
