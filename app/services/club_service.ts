@@ -30,6 +30,9 @@ export default class ClubService {
   async getClubById(id: number) {
     try {
       const club = await Club.find(id)
+      if (!club) {
+        throw new Error('Club not found')
+      }
       return club
     } catch (error) {
       throw error
