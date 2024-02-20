@@ -1,5 +1,7 @@
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import Event from './event.js'
 
 export default class Club extends BaseModel {
   @column({ isPrimary: true })
@@ -21,7 +23,13 @@ export default class Club extends BaseModel {
   declare email: string
 
   @column()
+  declare location: string
+
+  @column()
   declare facebook: string
+
+  @hasMany(() => Event)
+  declare event: HasMany<typeof Event>
 
   @column()
   declare twitter: string
