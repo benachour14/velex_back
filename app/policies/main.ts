@@ -12,4 +12,6 @@
 |
 */
 
-export const policies = {}
+export const policies = {
+  ClubPolicy: () => import('#policies/club_policy')
+}
