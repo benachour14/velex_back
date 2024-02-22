@@ -35,6 +35,7 @@ export default class Club extends BaseModel {
 
   @manyToMany(() => User, {
     pivotTable: 'club_memberships',
+    pivotColumns: ['role'],
   })
   declare members: ManyToMany<typeof User>
 
