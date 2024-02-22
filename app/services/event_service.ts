@@ -3,7 +3,7 @@ import Event from '#models/club'
 
 @inject()
 export default class EventService {
-  constructor() {}
+  constructor() { }
 
   async createEvent(data: any) {
     try {
@@ -37,7 +37,7 @@ export default class EventService {
 
   async updateEventById(id: number, data: any) {
     try {
-      const event = await Event.find(id)
+      const event = await this.getEventById(id)
       if (event) {
         event.merge(data)
         await event.save()

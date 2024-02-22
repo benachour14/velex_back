@@ -29,7 +29,7 @@ export default class ClubService {
 
   async getClubById(id: number) {
     try {
-      const club = await Club.find(id)
+      const club = await Club.findOrFail(id)
       if (!club) {
         throw new Error('Club not found')
       }
@@ -101,7 +101,7 @@ export default class ClubService {
       const club = await this.getClubById(clubId)
       if (club) {
         const member = await club.related('members').query().where('id', userId).first()
-        if (member && member.pivot.role === 'admin') {
+        if (member && member.$extras.pivot_role === 'admin') {
           return true
         }
         return false
