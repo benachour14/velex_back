@@ -14,7 +14,6 @@ export default class extends BaseSchema {
       table.string('facebook').nullable()
       table.string('twitter').nullable()
       table.string('location').nullable()
-      table.integer('club_id').unsigned().references('id').inTable('clubs').onDelete('CASCADE')
       table.timestamp('updated_at')
     })
   }
