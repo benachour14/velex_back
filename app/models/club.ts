@@ -1,7 +1,8 @@
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
-import type { HasMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
+import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
-import Event from './event.js'
+import Event from '#models/event'
+import User from '#models/user'
 
 export default class Club extends BaseModel {
   @column({ isPrimary: true })
@@ -30,6 +31,12 @@ export default class Club extends BaseModel {
 
   @hasMany(() => Event)
   declare event: HasMany<typeof Event>
+
+
+  @manyToMany(() => User, {
+    pivotTable: 'club_memberships',
+  })
+  declare members: ManyToMany<typeof User>
 
   @column()
   declare twitter: string

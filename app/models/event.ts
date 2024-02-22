@@ -1,7 +1,8 @@
-import { BaseModel, column, hasOne } from '@adonisjs/lucid/orm'
-import type { HasOne } from '@adonisjs/lucid/types/relations'
+import { BaseModel, column, hasOne, manyToMany } from '@adonisjs/lucid/orm'
+import type { HasOne, ManyToMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
-import Club from './club.js'
+import Club from '#models/club'
+import User from '#models/user'
 
 export default class Event extends BaseModel {
   @column({ isPrimary: true })
@@ -24,6 +25,12 @@ export default class Event extends BaseModel {
 
   @hasOne(() => Club)
   declare club: HasOne<typeof Club>
+
+  @manyToMany(() => User, {
+    pivotTable: 'event_participants',
+  })
+  declare participants: ManyToMany<typeof User>
+
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
