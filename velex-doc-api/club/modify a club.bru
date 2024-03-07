@@ -1,0 +1,19 @@
+meta {
+  name: modify a club
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/clubs/{{clubId}}
+  body: json
+  auth: none
+}
+
+body:json {
+    {
+        "name": "{{clubName}}",
+        "location": "{{clubLocation}}",
+        "members": "{{clubMembers}}"
+    }
+}
