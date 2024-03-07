@@ -5,7 +5,14 @@ meta {
 }
 
 post {
-  url: 
-  body: none
+  url: {{baseUrl}}/auth/login
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "email":"test@idl.com",
+    "password":"1dqsddsqdqsd"
+  }
 }
