@@ -21,7 +21,7 @@ export default class ClubPolicy extends BasePolicy {
 
     public async update(user: User, club: Club): Promise<AuthorizerResponse> {
         // check if the user is a menber and if  admin of the club
-        if (user.memberships && user.memberships.find(membership => membership.id === club.id && membership.$extras.role === 'admin')) {
+        if (user.memberships && user.memberships.find(membership => membership.id === club.id && membership.$extras.pivot_role === 'admin')) {
             return true
         }
         return false

@@ -27,10 +27,11 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare password: string
 
   @column()
-  declare role: 'USER'|'ADMIN'
+  declare role: 'USER' | 'ADMIN'
 
   @manyToMany(() => Club, {
     pivotTable: 'club_memberships',
+    pivotColumns: ['role'],
   })
   declare memberships: ManyToMany<typeof Club>
 
