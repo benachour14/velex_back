@@ -30,7 +30,7 @@ export default class Club extends BaseModel {
   declare facebook: string
 
   @hasMany(() => Event)
-  declare event: HasMany<typeof Event>
+  declare events: HasMany<typeof Event>
 
 
   @manyToMany(() => User, {
