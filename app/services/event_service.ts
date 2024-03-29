@@ -1,9 +1,9 @@
 import { inject } from '@adonisjs/core'
-import Event from '#models/club'
+import Event from '#models/event'
 
 @inject()
 export default class EventService {
-  constructor() { }
+  constructor() {}
 
   async createEvent(data: any) {
     try {

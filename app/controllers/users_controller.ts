@@ -8,7 +8,7 @@ export default class UsersController {
   constructor(protected userService: UserService) {}
   async({}: HttpContext) {}
 
-  async index({ bouncer,response }: HttpContext) {
+  async index({ bouncer, response }: HttpContext) {
     if (await bouncer.with(UserPolicy).denies('list')) {
       return response.forbidden('Cannot see the list of users')
     }
@@ -16,15 +16,15 @@ export default class UsersController {
     return response.json(users)
   }
 
-  async show({ bouncer,params, response }: HttpContext) {
+  async show({ bouncer, params, response }: HttpContext) {
     const userToShow = await this.userService.getUserById(params.id)
     if (!userToShow) {
       return response.notFound('User not found')
     }
-    if (await bouncer.with(UserPolicy).denies('view',userToShow)) {
+    if (await bouncer.with(UserPolicy).denies('view', userToShow)) {
       return response.forbidden('Cannot see other users')
     }
- 
+
     return response.json(userToShow)
   }
 

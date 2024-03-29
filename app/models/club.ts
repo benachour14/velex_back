@@ -32,7 +32,6 @@ export default class Club extends BaseModel {
   @hasMany(() => Event)
   declare event: HasMany<typeof Event>
 
-
   @manyToMany(() => User, {
     pivotTable: 'club_memberships',
     pivotColumns: ['role'],

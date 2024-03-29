@@ -31,7 +31,6 @@ export default class Event extends BaseModel {
   })
   declare participants: ManyToMany<typeof User>
 
-
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
