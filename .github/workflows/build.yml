@@ -11,6 +11,9 @@ jobs:
       
 
     steps: 
+      - name: Checkout
+        uses: actions/checkout@v4
+        
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         
@@ -32,4 +35,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ github.actor }}/velex_back:latest
+          tags: |
+           ${{ github.actor }}/velex_back:latest
+            ${{ github.actor }}/velex_back:${{ github.run_number }}
