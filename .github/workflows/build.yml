@@ -30,5 +30,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
+          context: .
           push: true
           tags: ${{ github.actor }}/velex_back:latest
