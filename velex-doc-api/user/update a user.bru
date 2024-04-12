@@ -1,0 +1,19 @@
+meta {
+  name: update a user
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/users/users/id
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "fullName": "bibi",
+    "email": "toto@id.com",
+    "password": "$scrypt$n=16384,r=8,p=1$jk8QfPrrRds11aR9mjih3g$xRNYckh1dotdtNI8oqS9N0EASp9DN3J7GvPjo3vk3MXCM+63PJ5ZGVauHoMA/lwNPmz/yxgL9Usq2g6/qfg0Tw"
+  }
+}

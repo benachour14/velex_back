@@ -7,8 +7,11 @@
 |
 */
 import router from '@adonisjs/core/services/router'
-import AuthController from 'App/Controllers/Http/AuthController'
 import authRoutes from './auth_routes.js'
+import clubRoutes from './club_routes.js'
+import userRoutes from './user_routes.js'
+import eventRoutes from './event_routes.js'
+const UsersController = () => import('#controllers/users_controller')
 
 router
   .group(() => {
@@ -17,7 +20,10 @@ router
         hello: 'world',
       }
     })
-
+    router.get('/users', [UsersController, 'index'])
+    clubRoutes()
+    userRoutes()
     authRoutes()
+    eventRoutes()
   })
   .prefix('api')

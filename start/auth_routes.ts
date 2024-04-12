@@ -1,5 +1,5 @@
 import router from '@adonisjs/core/services/router'
-import AuthController from '#controllers/auth_controller'
+const AuthController = () => import('#controllers/auth_controller')
 
 export default function authRoutes() {
   router

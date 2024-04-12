@@ -1,0 +1,19 @@
+meta {
+  name: add new club
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/clubs
+  body: json
+  auth: none
+}
+
+body:json {
+    {
+        "name": "{{clubName}}",
+        "location": "{{clubLocation}}",
+        "members": "{{clubMembers}}"
+    }
+}
