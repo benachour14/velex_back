@@ -34,7 +34,7 @@ export default class EventsController {
     return response.created(event)
   }
 
-  async update({ bouncer, params, request, response }: HttpContext) {
+  async update({ bouncer, params, response }: HttpContext) {
     const data = await eventValidator.validate(eventValidator)
 
     const event = await this.eventService.getEventById(params.id)

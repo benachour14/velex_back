@@ -1,6 +1,5 @@
 import Event from '#models/event'
 import User from '#models/user'
-import Club from '#models/club'
 import { BasePolicy } from '@adonisjs/bouncer'
 import { AuthorizerResponse } from '@adonisjs/bouncer/types'
 
