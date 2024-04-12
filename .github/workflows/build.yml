@@ -26,8 +26,3 @@ jobs:
 
       - name: Build Docker images
         run: docker-compose build
-
-      - name: Tag Docker images for GitHub Container Registry
-        run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/velex-back:$(( $(date +%s) / 60 / 60 / 24 ))
-          docker tag velex-back $IMAGE_NAME
