@@ -26,3 +26,8 @@ jobs:
 
       - name: Build Docker images
         run: docker-compose build
+        
+      - name: Push Docker images to GitHub Container Registry
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/velex-back:$(( $(date +%s) / 60 / 60 / 24 ))
+          docker push $IMAGE_NAME
