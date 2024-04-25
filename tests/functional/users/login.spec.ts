@@ -22,5 +22,24 @@ test.group('login user', () => {
     })
   })
 
+  test('should not login user with invalid credential', async ({ assert }) => {
+    const fakeUser = {
+      email: '',
+      password: '123456',
+    }
+
+    class FakeUserRepository extends PortUserRepository {
+      async verifyCredentials(email: string, password: string): Promise<any> {
+        return null
+      }
+    }
+
+    const userService = new UserService(new FakeUserRepository())
+    const user = await userService.login(fakeUser)
+    assert.deepEqual(user, { error: 'Invalid credentials' })
+  })
+  /* 
+  test('should not login user with invalid email', async ({ assert }) => {
+ */
   app.container.restore(UserService)
 })
