@@ -1,4 +1,10 @@
 import type { ApplicationService } from '@adonisjs/core/types'
+import PortClubRepository from '#/repositories/interfaces/port_club_repository'
+import PortEventRepository from '#/repositories/interfaces/port_event_repository'
+import PortUserRepository from '#/repositories/interfaces/port_user_repository'
+import ClubRepository from '#/repositories/club_repository.js'
+import EventRepository from '#/repositories/event_repository.js'
+import UserRepository from '#/repositories/user_repository.js'
 
 export default class AppProvider {
   constructor(protected app: ApplicationService) {}
@@ -6,7 +12,11 @@ export default class AppProvider {
   /**
    * Register bindings to the container
    */
-  register() {}
+  register() {
+    this.app.container.bind(PortClubRepository, () => this.app.container.make(ClubRepository))
+    this.app.container.bind(PortEventRepository, () => this.app.container.make(EventRepository))
+    this.app.container.bind(PortUserRepository, () => this.app.container.make(UserRepository))
+  }
 
   /**
    * The container bindings have booted
