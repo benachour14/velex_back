@@ -2,7 +2,7 @@ import User from '#models/user'
 import BaseRepository from './base_interface.js'
 
 export default abstract class PortUserRepository implements BaseRepository<User> {
-  abstract find(): Promise<User[]>
+  abstract find(): Promise<Partial<User[]>>
   abstract create(item: Partial<User>): Promise<User>
   abstract update(id: any, item: Partial<User>): Promise<User>
   abstract delete(id: any): Promise<User>
