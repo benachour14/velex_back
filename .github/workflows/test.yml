@@ -22,7 +22,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # You might need to set up your environment here, like installing dependencies or setting up databases.
-
+      - name: Install
+        run: npm ci
+        
       - name: Run tests
         run: npm run test

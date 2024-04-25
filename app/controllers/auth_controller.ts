@@ -26,7 +26,7 @@ export default class AuthController {
    * login user
    */
 
-  async login({ auth, request }: HttpContext) {
+  async login({ request }: HttpContext) {
     const data = request.all()
     const payload = await loginValidator.validate(data)
     try {

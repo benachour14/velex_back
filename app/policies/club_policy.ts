@@ -4,14 +4,14 @@ import { BasePolicy } from '@adonisjs/bouncer'
 import { AuthorizerResponse } from '@adonisjs/bouncer/types'
 
 export default class ClubPolicy extends BasePolicy {
-  async viewList(user: User): Promise<AuthorizerResponse> {
+  async viewList(): Promise<AuthorizerResponse> {
     return true
   }
-  async view(user: User, club: Club): Promise<AuthorizerResponse> {
+  async view(): Promise<AuthorizerResponse> {
     return true
   }
 
-  async create(user: User): Promise<AuthorizerResponse> {
+  async create(): Promise<AuthorizerResponse> {
     return true
   }
 
