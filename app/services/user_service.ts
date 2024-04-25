@@ -1,5 +1,6 @@
 import { inject } from '@adonisjs/core'
 import PortUserRepository from '#repositories/interfaces/user_interface'
+import { Exception } from '@adonisjs/core/exceptions'
 
 @inject()
 export default class UserService {
@@ -13,9 +14,12 @@ export default class UserService {
 
       return user
     } catch (error) {
+      console.log(error)
       if (error.code === '23505') {
-        return { error: 'Email already exists' }
-      } else return { error: error }
+        throw new Exception('Email already exists')
+      } else {
+        throw new Exception(error.message)
+      }
     }
   }
 
