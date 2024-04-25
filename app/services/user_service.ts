@@ -1,12 +1,9 @@
 import { inject } from '@adonisjs/core'
-import User from '#models/user'
+import PortUserRepository from '#repositories/interfaces/user_interface'
 
 @inject()
 export default class UserService {
-  userRepository: User
-  constructor() {
-    this.userRepository = new User()
-  }
+  constructor(protected userRepository: PortUserRepository) {}
 
   async createUser(data: any) {
     try {
@@ -29,7 +26,7 @@ export default class UserService {
       return { error: 'Invalid credentials' }
     }
 
-    const token = await this.userRepository.accessTokens.create(user)
+    const token = await this.userRepository.createToken(user)
 
     return {
       type: 'bearer',
@@ -38,9 +35,10 @@ export default class UserService {
   }
 
   async updateUserById(id: number, data: any) {
-    const user = await this.userRepository.find(id)
-    user?.merge(data)
-    return await user?.save()
+    let user = await this.userRepository.findById(id)
+    if (!user) throw new Error('User not found')
+    user = await this.userRepository.update(id, data)
+    return user
   }
 
   async deleteUserById(id: number) {
