@@ -1,7 +1,7 @@
 import Event from '#models/event'
 import PortEventRepository from '#repositories/interfaces/event_interface'
 
-export class EventRepository implements PortEventRepository {
+export default class EventRepository implements PortEventRepository {
   create(data: any): Promise<Event> {
     return Event.create(data)
   }

@@ -1,7 +1,7 @@
 import Club from '#models/club'
 import PortClubRepository from '#repositories/interfaces/club_interface'
 
-export class ClubRepository implements PortClubRepository {
+export default class ClubRepository implements PortClubRepository {
   create(data: any): Promise<Club> {
     return Club.create(data)
   }

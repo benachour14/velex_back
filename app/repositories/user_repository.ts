@@ -1,7 +1,7 @@
 import User from '#models/user'
 import PortUserRepository from '#repositories/interfaces/user_interface'
 
-export class UserRepository implements PortUserRepository {
+export default class UserRepository implements PortUserRepository {
   create(data: any): Promise<User> {
     return User.create(data)
   }
