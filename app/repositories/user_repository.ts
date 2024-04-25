@@ -37,4 +37,12 @@ export default class UserRepository implements PortUserRepository {
   async find(): Promise<User[]> {
     return await User.all()
   }
+
+  async verifyCredentials(email: string, password: string): Promise<User | null> {
+    return User.verifyCredentials(email, password)
+  }
+
+  async createToken(user: User): Promise<any> {
+    return User.accessTokens.create(user)
+  }
 }

@@ -2,11 +2,11 @@ import Club from '#models/club'
 import PortClubRepository from '#repositories/interfaces/club_interface'
 
 export default class ClubRepository implements PortClubRepository {
-  create(data: any): Promise<Club> {
+  async create(data: any): Promise<Club> {
     return Club.create(data)
   }
 
-  update(id: number, data: any): Promise<Club | null> {
+  async update(id: number, data: any): Promise<Club | null> {
     const club = Club.find(id)
     if (club) {
       club.merge(data)
@@ -15,7 +15,7 @@ export default class ClubRepository implements PortClubRepository {
     return null
   }
 
-  delete(id: number): Promise<void> {
+  async delete(id: number): Promise<void> {
     const club = Club.find(id)
     if (club) {
       return club.delete()
