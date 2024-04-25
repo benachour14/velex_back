@@ -1,13 +1,13 @@
 import { inject } from '@adonisjs/core'
-import Club from '#models/club'
+import PortClubRepository from '#repositories/interfaces/club_interface'
 
 @inject()
 export default class ClubService {
-  constructor() {}
+  constructor(protected clubRepository: PortClubRepository) {}
 
   async createClub(data: any) {
     try {
-      const club = await Club.create(data)
+      const club = await this.clubRepository.create(data)
       return club
     } catch (error) {
       if (error.code === '23505') {
@@ -20,7 +20,7 @@ export default class ClubService {
 
   async getAllClubs() {
     try {
-      const clubs = await Club.all()
+      const clubs = await this.clubRepository.find()
       return clubs
     } catch (error) {
       throw error
@@ -29,7 +29,7 @@ export default class ClubService {
 
   async getClubById(id: number) {
     try {
-      const club = await Club.findOrFail(id)
+      const club = await this.clubRepository.findById(id)
       if (!club) {
         throw new Error('Club not found')
       }
@@ -41,10 +41,9 @@ export default class ClubService {
 
   async updateClubById(id: number, data: any) {
     try {
-      const club = await Club.find(id)
+      let club = await this.clubRepository.findById(id)
       if (club) {
-        club.merge(data)
-        await club.save()
+        club = await this.clubRepository.update(id, data)
         return club
       } else {
         throw new Error('Club not found')
@@ -56,7 +55,7 @@ export default class ClubService {
 
   async deleteClubById(id: number) {
     try {
-      const club = await Club.find(id)
+      const club = await this.clubRepository.findById(id)
       if (club) {
         await club.delete()
       } else {
@@ -68,8 +67,8 @@ export default class ClubService {
   }
 
   async addMemberToClub(clubId: number, userId: number) {
-    /*    try {
-      const club = await Club.find(clubId)
+        try {
+      const club = await this.clubRepository.findById(clubId)
       if (club) {
         await club.related('members').attach([userId])
         return club
@@ -78,7 +77,7 @@ export default class ClubService {
       }
     } catch (error) {
       throw error
-    } */
+    } 
   }
 
   async isMemberOfClub(clubId: number, userId: number) {

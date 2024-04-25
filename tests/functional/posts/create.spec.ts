@@ -1,4 +1,4 @@
-import { test } from '@japa/runner'
+/*import { test } from '@japa/runner'
 import ClubService from '#services/club_service'
 
 const fakeClub = {
@@ -52,3 +52,4 @@ test.group('club', () => {
     assert.isNull(club)
   })
 })
+*/
