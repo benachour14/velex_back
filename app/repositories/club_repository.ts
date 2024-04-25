@@ -1,5 +1,5 @@
 import Club from '#models/club'
-import { PortClubRepository } from './base_repository'
+import PortClubRepository from '#repositories/interfaces/club_interface'
 
 export class ClubRepository implements PortClubRepository {
   create(data: any): Promise<Club> {

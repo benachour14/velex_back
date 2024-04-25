@@ -1,10 +1,11 @@
 import type { ApplicationService } from '@adonisjs/core/types'
-import PortClubRepository from '#/repositories/interfaces/port_club_repository'
-import PortEventRepository from '#/repositories/interfaces/port_event_repository'
-import PortUserRepository from '#/repositories/interfaces/port_user_repository'
-import ClubRepository from '#/repositories/club_repository.js'
-import EventRepository from '#/repositories/event_repository.js'
-import UserRepository from '#/repositories/user_repository.js'
+
+import ClubRepository from '#repositories/club_repository.js'
+import EventRepository from '#repositories/event_repository.js'
+import PortClubRepository from '#repositories/interfaces/club_interface'
+import PortEventRepository from '#repositories/interfaces/event_interface'
+import PortUserRepository from '#repositories/interfaces/user_interface'
+import UserRepository from '#repositories/user_repository.js'
 
 export default class AppProvider {
   constructor(protected app: ApplicationService) {}
