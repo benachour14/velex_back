@@ -24,8 +24,8 @@ jobs:
 
       - name: Tag Docker images for GitHub Container Registry
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/velex-back:$(( $(date +%s) / 60 / 60 / 24 ))
-          docker tag app $IMAGE_NAME
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/your_image_name
+          docker tag your_image_name $IMAGE_NAME
 
       - name: Push Docker images to GitHub Container Registry
         run: |

@@ -3,7 +3,7 @@ import Club from '#models/club'
 
 @inject()
 export default class ClubService {
-  constructor() { }
+  constructor() {}
 
   async createClub(data: any) {
     try {
@@ -81,7 +81,6 @@ export default class ClubService {
     } */
   }
 
-
   async isMemberOfClub(clubId: number, userId: number) {
     try {
       const club = await this.getClubById(clubId)
@@ -89,11 +88,9 @@ export default class ClubService {
         const members = await club.related('members').query().where('id', userId).first()
         return members ? true : false
       }
-    }
-    catch (error) {
+    } catch (error) {
       throw error
     }
-
   }
 
   async memberHasRoleAdmin(userId: number, clubId: number) {
@@ -109,7 +106,5 @@ export default class ClubService {
     } catch (error) {
       throw error
     }
-
-
   }
 }
