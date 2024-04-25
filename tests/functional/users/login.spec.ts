@@ -16,7 +16,10 @@ test.group('login user', () => {
     }
     const userService = new UserService(new FakeUserRepository())
     const user = await userService.login(fakeUser)
-    assert.deepEqual(user, fakeUser)
+    assert.deepEqual(user, {
+      type: 'bearer',
+      value: 'oat_OQ.QVQxVk9JUERFeGhVdjVLUlg2VUhEMi1uTGo5U3FTVHRTRXJSUXZILTE1OTg0MjExODM',
+    })
   })
 
   app.container.restore(UserService)

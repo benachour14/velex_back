@@ -40,9 +40,6 @@ export class FakeUserRepository extends PortUserRepository {
     return { ...fakeUser[0] }
   }
   async createToken(user: User): Promise<any> {
-    return {
-      type: 'bearer',
-      value: 'oat_OQ.QVQxVk9JUERFeGhVdjVLUlg2VUhEMi1uTGo5U3FTVHRTRXJSUXZILTE1OTg0MjExODM',
-    }
+    return 'oat_OQ.QVQxVk9JUERFeGhVdjVLUlg2VUhEMi1uTGo5U3FTVHRTRXJSUXZILTE1OTg0MjExODM'
   }
 }

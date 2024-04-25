@@ -33,7 +33,7 @@ export default class UserService {
 
     return {
       type: 'bearer',
-      value: token.value!.release(),
+      value: token,
     }
   }
 

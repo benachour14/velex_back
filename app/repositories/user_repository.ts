@@ -43,6 +43,8 @@ export default class UserRepository implements PortUserRepository {
   }
 
   async createToken(user: User): Promise<any> {
-    return User.accessTokens.create(user)
+    const token = await User.accessTokens.create(user)
+
+    return token.value!.release()
   }
 }
