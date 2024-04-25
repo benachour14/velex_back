@@ -20,7 +20,7 @@ test.group('user', () => {
     },
   ]
 
-  class FakeUserRepository implements PortUserRepository {
+  class FakeUserRepository extends PortUserRepository {
     find(): Promise<User[]> {}
     async create(item: Partial<User>): Promise<User> {
       return (await item) as User
@@ -51,7 +51,7 @@ test.group('user', () => {
     return new FakeUserRepository()
   })
 
-  test('create user', async ({ assert }) => {
+  test('should add user to the user array', async ({ assert }) => {
     const fakeUser = {
       fullName: 'aa',
       email: 'fake@gmail.com',
@@ -62,5 +62,39 @@ test.group('user', () => {
     const user = await userService.createUser(fakeUser)
     assert.deepEqual(user, fakeUser)
   })
+
+  test('should throw a error if create user with a existing email', async ({ expect }) => {
+    const fakeUser = {
+      fullName: 'aa',
+      email: '',
+      password: '123456',
+      password_confirmation: '123456',
+    }
+    class FakeUserRepository extends PortUserRepository {
+      create(data: any): Promise<User> {
+        throw new Error('Email already exists')
+      }
+    }
+    const userService = new UserService(new FakeUserRepository())
+
+    await expect(() => userService.createUser(fakeUser)).rejects.toThrow('Email already exists')
+  })
+
+  test('should throw a error if create user without a password', async ({ expect }) => {
+    const fakeUser = {
+      fullName: 'aa',
+      email: '',
+    }
+    class FakeUserRepository extends PortUserRepository {
+      create(data: any): Promise<User> {
+        throw new Error('Password is required')
+      }
+    }
+    const userService = new UserService(new FakeUserRepository())
+
+    await expect(() => userService.createUser(fakeUser)).rejects.toThrow('Password is required')
+  })
+
+  app.container.restore(UserService)
 })
 */
