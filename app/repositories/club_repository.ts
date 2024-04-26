@@ -24,15 +24,14 @@ export default class ClubRepository implements PortClubRepository {
     }
     return null
   }
-
-  async findByName(name: string): Promise<Club | null> {
-    return Club.findBy('name', name)
-  }
-
   
 
   async findById(id: number): Promise<Club | null> {
-    return Club.find(id)
+    const club = await Club.find(id)
+    if (club) {
+      return club
+    }
+    return null
   }
 
   async find(): Promise<Club[]> {

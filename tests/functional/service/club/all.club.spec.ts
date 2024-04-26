@@ -1,4 +1,3 @@
-import Club from "#models/club";
 import PortClubRepository from "#repositories/interfaces/club_interface";
 import ClubService from "#services/club_service";
 import app from '@adonisjs/core/services/app'
@@ -12,9 +11,10 @@ test.group('all club', () => {
     })
 
    
-  test('get all clubs', async ({ assert }) => {
+  test('should get all clubs', async ({ assert }) => {
     const fakeClubs = [
       {
+          id: 1,
           name: 'Test Club 1',
           logo: 'test_logo1.png',
           description: 'This is test club 1',
@@ -25,6 +25,7 @@ test.group('all club', () => {
           twitter: 'test_twitter1'
       },
       {
+          id: 2,
           name: 'Test Club 2',
           logo: 'test_logo2.png',
           description: 'This is test club 2',
@@ -41,7 +42,18 @@ test.group('all club', () => {
       const formattedClubs = Object.values(clubs);
       assert.deepEqual(formattedClubs, fakeClubs);
   });
+  test('should clubs is empty', async ({ assert }) => {
+    const emptyClubRepository = {
+      find: async () => []
+    };
+
+    const clubService = new ClubService(emptyClubRepository);
+
+    const clubs = await clubService.getAllClubs();
+
+    assert.isArray(clubs);
+    assert.isEmpty(clubs);
+  });
   
-    
     app.container.restore(ClubService)
 })

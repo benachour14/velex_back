@@ -3,6 +3,7 @@ import PortClubRepository from '#repositories/interfaces/club_interface'
 
 export const fakeClubs = [
     {
+        id: 1,
         name: 'Test Club 1',
         logo: 'test_logo1.png',
         description: 'This is test club 1',
@@ -13,6 +14,7 @@ export const fakeClubs = [
         twitter: 'test_twitter1'
     },
     {
+        id: 2,
         name: 'Test Club 2',
         logo: 'test_logo2.png',
         description: 'This is test club 2',
@@ -38,9 +40,6 @@ export class FakeClubRepository implements PortClubRepository {
       throw new Error('Method not implemented.')
     }
     findById(id: any): Promise<Club | null> {
-      throw new Error('Method not implemented.')
-    }
-    findByName(name: string): Promise<Club | null> {
-        throw new Error('Method not implemented.')
+      return fakeClubs[0]
     }
 }

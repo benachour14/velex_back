@@ -7,5 +7,4 @@ export default abstract class PortClubRepository implements BaseRepository<Club>
   abstract update(id: any, item: Partial<Club>): Promise<Club | null>
   abstract delete(id: any): Promise<Club | null>
   abstract findById(id: any): Promise<Club | null>
-  abstract findByName(name: string): Promise<Club | null>
 }
