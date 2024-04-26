@@ -14,7 +14,6 @@ export default class UserService {
 
       return user
     } catch (error) {
-      console.log(error)
       if (error.code === '23505') {
         throw new Exception('Email already exists')
       } else {
@@ -34,7 +33,7 @@ export default class UserService {
 
     return {
       type: 'bearer',
-      value: token.value!.release(),
+      value: token,
     }
   }
 

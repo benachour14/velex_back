@@ -3,50 +3,9 @@ import PortUserRepository from '#repositories/interfaces/user_interface'
 import UserService from '#services/user_service'
 import app from '@adonisjs/core/services/app'
 import { test } from '@japa/runner'
+import { FakeUserRepository } from './base.js'
 
-test.group('user', () => {
-  const fakeUser = [
-    {
-      fullName: 'aa',
-      email: 'fake@gmail.com',
-      password: '123456',
-      password_confirmation: '123456',
-    },
-    {
-      fullName: 'bb',
-      email: 'fake@gmail.com',
-      password: '123456',
-      password_confirmation: '123456',
-    },
-  ]
-
-  class FakeUserRepository extends PortUserRepository {
-    find(): Promise<User[]> {}
-    async create(item: Partial<User>): Promise<User> {
-      return (await item) as User
-    }
-    update(id: any, item: Partial<User>): Promise<User> {
-      throw new Error('Method not implemented.')
-    }
-    delete(id: any): Promise<User> {
-      throw new Error('Method not implemented.')
-    }
-    findById(id: any): Promise<User | null> {
-      throw new Error('Method not implemented.')
-    }
-    findByName(name: string): Promise<User | null> {
-      throw new Error('Method not implemented.')
-    }
-    findUsersWithMembers(): Promise<User[]> {
-      throw new Error('Method not implemented.')
-    }
-    verifyCredentials(email: string, password: string): Promise<User | null> {
-      throw new Error('Method not implemented.')
-    }
-    createToken(user: User): Promise<any> {
-      throw new Error('Method not implemented.')
-    }
-  }
+test.group('add user', () => {
   app.container.swap(PortUserRepository, () => {
     return new FakeUserRepository()
   })
@@ -93,6 +52,20 @@ test.group('user', () => {
     const userService = new UserService(new FakeUserRepository())
 
     await expect(() => userService.createUser(fakeUser)).rejects.toThrow('Password is required')
+  })
+  test('should throw a error if create user without a email', async ({ expect }) => {
+    const fakeUser = {
+      fullName: 'aa',
+      email: '',
+    }
+    class FakeUserRepository extends PortUserRepository {
+      create(data: any): Promise<User> {
+        throw new Error('Email is required')
+      }
+    }
+    const userService = new UserService(new FakeUserRepository())
+
+    await expect(() => userService.createUser(fakeUser)).rejects.toThrow('Email is required')
   })
 
   app.container.restore(UserService)
