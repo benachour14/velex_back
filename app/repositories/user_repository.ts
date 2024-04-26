@@ -2,12 +2,13 @@ import User from '#models/user'
 import PortUserRepository from '#repositories/interfaces/user_interface'
 
 export default class UserRepository implements PortUserRepository {
-  create(data: any): Promise<User> {
+  async create(data: any): Promise<User> {
     return User.create(data)
   }
 
-  update(id: number, data: any): Promise<User | null> {
-    const user = User.find(id)
+  async update(id: number, data: any): Promise<User | null> {
+    const user = await User.find(id)
+    if (!user) throw new Error('User not found')
     if (user) {
       user.merge(data)
       return user.save()
@@ -15,19 +16,19 @@ export default class UserRepository implements PortUserRepository {
     return null
   }
 
-  delete(id: number): Promise<void> {
-    const user = User.find(id)
+  async delete(id: number): Promise<void> {
+    const user = await User.find(id)
     if (user) {
-      return user.delete()
+      return await user.delete()
     }
   }
 
   async findByName(name: string): Promise<User | null> {
-    return User.findOneBy('name', name)
+    return User.findBy('name', name)
   }
 
   async findUsersWithMembers(): Promise<User[]> {
-    return User.query().with('members').fetch()
+    return User.query().preload('memberships')
   }
 
   async findById(id: number): Promise<User | null> {

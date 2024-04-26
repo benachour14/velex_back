@@ -22,13 +22,13 @@ export class FakeUserRepository extends PortUserRepository {
     return (await item) as User
   }
   async update(id: any, item: Partial<User>): Promise<User> {
-    throw new Error('Method not implemented.')
+    return item as User
   }
   async delete(id: any): Promise<User> {
     throw new Error('Method not implemented.')
   }
   async findById(id: any): Promise<User | null> {
-    throw new Error('Method not implemented.')
+    return fakeUser[id]
   }
   async findByName(name: string): Promise<User | null> {
     throw new Error('Method not implemented.')

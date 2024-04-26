@@ -23,10 +23,11 @@ export default class UserService {
   }
 
   async login(data: any) {
+    if (!data.email || !data.password) throw new Exception('Email and password are required')
     const user = await this.userRepository.verifyCredentials(data.email, data.password)
 
     if (!user) {
-      return { error: 'Invalid credentials' }
+      throw new Exception('Invalid credentials')
     }
 
     const token = await this.userRepository.createToken(user)
@@ -45,18 +46,18 @@ export default class UserService {
   }
 
   async deleteUserById(id: number) {
-    const user = await this.userRepository.find(id)
+    const user = await this.userRepository.findById(id)
     return await user?.delete()
   }
 
   async getUserById(id: number) {
     try {
-      return await this.userRepository.find(id)
+      return await this.userRepository.findById(id)
     } catch (error) {
       throw new Error('User not found')
     }
   }
   async getAllUsers() {
-    return await this.userRepository.all()
+    return await this.userRepository.find()
   }
 }
