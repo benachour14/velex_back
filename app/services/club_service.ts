@@ -41,14 +41,17 @@ export default class ClubService {
   }
 
   async updateClubById(id: number, data: any) {
+    
     try {
       let club = await this.clubRepository.findById(id)
-      if (club) {
-        club = await this.clubRepository.update(id, data)
-        return club
-      } else {
+      if (!club) {
         throw new Exception('Club not found')
       }
+      club = await this.clubRepository.update(id, data)
+      if (!club) {
+        throw new Exception('Validation Error: Email is required')
+      }
+      return club
     } catch (error) {
       throw new Exception(error.message)
     }

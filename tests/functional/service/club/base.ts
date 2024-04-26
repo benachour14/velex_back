@@ -33,8 +33,8 @@ export class FakeClubRepository implements PortClubRepository {
     async create(item: Partial<Club>): Promise<Club> {
         return (await item) as Club
     }
-    update(id: any, item: Partial<Club>): Promise<Club> {
-      throw new Error('Method not implemented.')
+    async update(id: any, item: Partial<Club>): Promise<Club | null> {
+      return (await item) as Club
     }
     delete(id: any): Promise<Club> {
       throw new Error('Method not implemented.')

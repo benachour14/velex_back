@@ -26,7 +26,7 @@ test.group('find club by id', () => {
 
         class FakeClubRepository extends PortClubRepository {
           findById(id: any): Promise<Club | null> {
-              throw new Error('Club not found')
+              return null;
           }
         }
         const clubService = new ClubService(new FakeClubRepository())
