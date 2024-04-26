@@ -1,5 +1,6 @@
 import { inject } from '@adonisjs/core'
 import PortClubRepository from '#repositories/interfaces/club_interface'
+import { Exception } from '@adonisjs/core/exceptions'
 
 @inject()
 export default class ClubService {
@@ -11,9 +12,9 @@ export default class ClubService {
       return club
     } catch (error) {
       if (error.code === '23505') {
-        throw new Error('Club already exists222')
+        throw new Exception('Club already exists222')
       } else {
-        throw error
+        throw new Exception(error.message)
       }
     }
   }
@@ -23,7 +24,7 @@ export default class ClubService {
       const clubs = await this.clubRepository.find()
       return clubs
     } catch (error) {
-      throw error
+      throw new Exception(error.message)
     }
   }
 
@@ -31,11 +32,11 @@ export default class ClubService {
     try {
       const club = await this.clubRepository.findById(id)
       if (!club) {
-        throw new Error('Club not found')
+        throw new Exception('Club not found')
       }
       return club
     } catch (error) {
-      throw error
+      throw new Exception(error.message)
     }
   }
 
@@ -46,10 +47,10 @@ export default class ClubService {
         club = await this.clubRepository.update(id, data)
         return club
       } else {
-        throw new Error('Club not found')
+        throw new Exception('Club not found')
       }
     } catch (error) {
-      throw error
+      throw new Exception(error.message)
     }
   }
 
@@ -59,10 +60,10 @@ export default class ClubService {
       if (club) {
         await club.delete()
       } else {
-        throw new Error('Club not found')
+        throw new Exception('Club not found')
       }
     } catch (error) {
-      throw error
+      throw new Exception(error.message)
     }
   }
 
@@ -73,10 +74,10 @@ export default class ClubService {
         await club.related('members').attach([userId])
         return club
       } else {
-        throw new Error('Club not found')
+        throw new Exception('Club not found')
       }
     } catch (error) {
-      throw error
+      throw new Exception(error.message)
     } 
   }
 
@@ -88,7 +89,7 @@ export default class ClubService {
         return members ? true : false
       }
     } catch (error) {
-      throw error
+      throw new Exception(error.message)
     }
   }
 
@@ -103,7 +104,7 @@ export default class ClubService {
         return false
       }
     } catch (error) {
-      throw error
+      throw new Exception(error.message)
     }
   }
 }
