@@ -11,7 +11,7 @@ export default class ClubService {
       return club
     } catch (error) {
       if (error.code === '23505') {
-        throw new Error('Club already exists')
+        throw new Error('Club already exists222')
       } else {
         throw error
       }

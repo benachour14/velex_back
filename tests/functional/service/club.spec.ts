@@ -33,7 +33,7 @@ test.group('club', () => {
             throw new Error('Method not implemented.')
         }
         async create(item: Partial<Club>): Promise<Club> {
-            throw new Error('Method not implemented.')
+            return (await item) as Club
         }
         update(id: any, item: Partial<Club>): Promise<Club> {
           throw new Error('Method not implemented.')
@@ -71,7 +71,7 @@ test.group('club', () => {
       console.log(fakeClub)
       assert.deepEqual(club, fakeClub)
     })
-    test('create club - club already exists', async ({ assert }) => {
+    test('create club - should throw a error if create club already exists', async ({ expect }) => {
         const existingClub = {
           name: 'Test Club',
           logo: 'test_logo.png',
@@ -83,15 +83,36 @@ test.group('club', () => {
           twitter: 'existing_twitter'
         }
       
+        class FakeClubRepository extends PortClubRepository {
+            create(data: any): Promise<Club> {
+                throw new Error('Club already exists')
+            }
+        }
         const clubService = new ClubService(new FakeClubRepository())
       
-        try {
-          await clubService.createClub(existingClub)
-          assert.fail('Club already exists')
-        } catch (error) {
-          assert.equal(error.message, 'Club already exists')
-        }
+        await expect(() => clubService.createClub(existingClub)).rejects.toThrow('Club already exists')
       })
+      test('create club - should throw a error if create club without a email', async ({ expect }) => {
+        const fakeClub = {
+          name: 'Test Club',
+          logo: 'test_logo.png',
+          description: 'This is an existing club',
+          phone: '987654321',
+          email: '',
+          location: 'Existing Location',
+          facebook: 'existing_facebook',
+          twitter: 'existing_twitter'
+        }
+        class FakeClubRepository extends PortClubRepository {
+          create(data: any): Promise<Club> {
+              throw new Error('Email is required')
+          }
+        }
+        const clubService = new ClubService(new FakeClubRepository())
       
+        await expect(() => clubService.createClub(existingClub)).rejects.toThrow('Club already exists')
+      })
+
+      app.container.restore(ClubService)
   })
   

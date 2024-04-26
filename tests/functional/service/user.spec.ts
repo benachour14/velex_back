@@ -1,4 +1,4 @@
-/*import User from '#models/user'
+import User from '#models/user'
 import PortUserRepository from '#repositories/interfaces/user_interface'
 import UserService from '#services/user_service'
 import app from '@adonisjs/core/services/app'
@@ -97,4 +97,3 @@ test.group('user', () => {
 
   app.container.restore(UserService)
 })
-*/
