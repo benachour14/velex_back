@@ -37,7 +37,7 @@ export class FakeClubRepository implements PortClubRepository {
       return (await item) as Club
     }
     delete(id: any): Promise<Club> {
-      throw new Error('Method not implemented.')
+      return fakeClubs[0]
     }
     findById(id: any): Promise<Club | null> {
       return fakeClubs[0]

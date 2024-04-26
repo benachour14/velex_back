@@ -12,7 +12,7 @@ export default class ClubService {
       return club
     } catch (error) {
       if (error.code === '23505') {
-        throw new Exception('Club already exists222')
+        throw new Exception('Club already exists')
       } else {
         throw new Exception(error.message)
       }
@@ -60,11 +60,11 @@ export default class ClubService {
   async deleteClubById(id: number) {
     try {
       const club = await this.clubRepository.findById(id)
-      if (club) {
-        await club.delete()
-      } else {
+      console.log(club)
+      if (!club) {
         throw new Exception('Club not found')
       }
+      return await this.clubRepository.delete(id)
     } catch (error) {
       throw new Exception(error.message)
     }
