@@ -16,11 +16,11 @@ export default class ClubRepository implements PortClubRepository {
     return null
   }
 
-  async delete(id: number): Promise<Club | null> {
+  async delete(id: number): Promise<void | null> {
     const club = await Club.find(id)
     if (club) {
-      club.delete()
-      return club
+       await club.delete()
+       return null
     }
     return null
   }

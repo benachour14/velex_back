@@ -64,6 +64,7 @@ export default class ClubService {
       if (!club) {
         throw new Exception('Club not found')
       }
+      console.log(await this.clubRepository.delete(id))
       return await this.clubRepository.delete(id)
     } catch (error) {
       throw new Exception(error.message)

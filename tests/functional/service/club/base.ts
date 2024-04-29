@@ -36,8 +36,8 @@ export class FakeClubRepository implements PortClubRepository {
     async update(id: any, item: Partial<Club>): Promise<Club | null> {
       return (await item) as Club
     }
-    delete(id: any): Promise<Club> {
-      return fakeClubs[0]
+    delete(id: any): Promise<void | null> {
+      
     }
     findById(id: any): Promise<Club | null> {
       return fakeClubs[0]
