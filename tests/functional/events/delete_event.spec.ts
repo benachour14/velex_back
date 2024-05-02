@@ -9,13 +9,10 @@ test.group('delete event', () => {
     existingEvent.id = 1
     existingEvent.title = 'Test Event'
     existingEvent.description = 'This is a test event'
-    existingEvent.date = '2022-04-01'
-    existingEvent.time = '14:00'
     existingEvent.location = 'Test Location'
-    existingEvent.capacity = 50
-    existingEvent.price = 10.0
 
     const fakeEventRepository = new FakeEventRepository()
+
     fakeEventRepository.events.push(existingEvent)
 
     const eventService = new EventService(fakeEventRepository)
