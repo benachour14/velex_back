@@ -9,7 +9,6 @@ export default class ClubRepository implements PortClubRepository {
   async update(id: number, data: any): Promise<Club | null> {
     const club = await Club.find(id)
     if (club) {
-      
       club.merge(data)
       return club.save()
     }
@@ -24,7 +23,6 @@ export default class ClubRepository implements PortClubRepository {
     }
     return null
   }
-  
 
   async findById(id: number): Promise<Club | null> {
     const club = await Club.find(id)
