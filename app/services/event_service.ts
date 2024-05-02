@@ -1,16 +1,27 @@
 import { inject } from '@adonisjs/core'
 import Event from '#models/event'
 import PortEventRepository from '#repositories/interfaces/event_interface'
+import { Exception } from '@adonisjs/core/exceptions'
 
 @inject()
 export default class EventService {
   constructor(protected eventRepository: PortEventRepository) {}
   async createEvent(data: any) {
+    console.log('data', data)
+
     try {
-      const event = await Event.create(data)
+      const event = await this.eventRepository.create(data)
+      console.log('event', event)
+
       return event
     } catch (error) {
-      throw error
+      console.log('error', error.code)
+
+      if (error.code === '23505') {
+        throw new Exception('Event already exists')
+      } else {
+        throw new Exception(error.message)
+      }
     }
   }
 

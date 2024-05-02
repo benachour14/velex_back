@@ -23,15 +23,16 @@ export default class EventsController {
     return response.json(event)
   }
 
-  async create({ bouncer, request, response }: HttpContext) {
+  async create({ request }: HttpContext) {
     const data = await eventValidator.validate(request.all())
+    try {
+      const event = await this.eventService.createEvent(data)
+      return event
+    } catch (error) {
+      console.log('error', error)
 
-    if (await bouncer.with(EventPolicy).denies('create', data.club_id)) {
-      return response.forbidden('Cannot create this event')
+      return { error: error }
     }
-
-    const event = await this.eventService.createEvent(data)
-    return response.created(event)
   }
 
   async update({ bouncer, params, response }: HttpContext) {

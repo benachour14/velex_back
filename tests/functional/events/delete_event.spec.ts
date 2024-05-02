@@ -2,24 +2,28 @@ import { test } from '@japa/runner'
 import Event from '#models/event'
 import EventService from '#services/event_service'
 import { FakeEventRepository } from './base.js'
+import PortEventRepository from '#repositories/interfaces/event_interface'
+import app from '@adonisjs/core/services/app'
+import { DateTime } from 'luxon'
 
 test.group('delete event', () => {
+  app.container.swap(PortEventRepository, () => {
+    return new FakeEventRepository()
+  })
+
   test('should delete an existing event', async ({ assert }) => {
-    const existingEvent = new Event()
-    existingEvent.id = 1
-    existingEvent.title = 'Test Event'
-    existingEvent.description = 'This is a test event'
-    existingEvent.location = 'Test Location'
-
-    const fakeEventRepository = new FakeEventRepository()
-
-    fakeEventRepository.events.push(existingEvent)
-
-    const eventService = new EventService(fakeEventRepository)
-    await eventService.deleteEventById(existingEvent.id)
-
-    const deletedEvent = fakeEventRepository.events.find((event) => event.id === existingEvent.id)
-    assert.isNull(deletedEvent)
+    const eventData = {
+      id: 1,
+      title: 'Test Event',
+      description: 'This is a test event',
+      location: 'Test Location',
+      startDate: DateTime.fromISO('2022-04-01'),
+      endDate: DateTime.fromISO('2022-04-01'),
+    }
+    const eventService = new EventService(new FakeEventRepository())
+    await eventService.createEvent(eventData)
+    const deletedEvent = await eventService.deleteEventById(1)
+    assert.deepEqual(deletedEvent, eventData)
   })
 
   test('should throw an error when deleting a non-existing event', async ({ assert }) => {
