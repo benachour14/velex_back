@@ -17,7 +17,9 @@ export const fakeUser = [
 ]
 
 export class FakeUserRepository extends PortUserRepository {
-  async find(): Promise<User[]> {}
+  async find(): Promise<User[]> {
+    return fakeUser as User[]
+  }
   async create(item: Partial<User>): Promise<User> {
     return (await item) as User
   }
@@ -28,7 +30,7 @@ export class FakeUserRepository extends PortUserRepository {
     throw new Error('Method not implemented.')
   }
   async findById(id: any): Promise<User | null> {
-    return fakeUser[id]
+    return fakeUser[id] as User
   }
   async findByName(name: string): Promise<User | null> {
     throw new Error('Method not implemented.')

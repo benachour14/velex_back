@@ -3,7 +3,15 @@ import PortUserRepository from '#repositories/interfaces/user_interface'
 
 export default class UserRepository implements PortUserRepository {
   async create(data: any): Promise<User> {
-    return User.create(data)
+    try {
+      return User.create(data)
+    } catch (error) {
+      if (error.code === '23505') {
+        throw new Error('Email already exists')
+      } else {
+        throw new Error(error.message)
+      }
+    }
   }
 
   async update(id: number, data: any): Promise<User | null> {
