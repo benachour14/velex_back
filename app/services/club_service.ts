@@ -11,11 +11,7 @@ export default class ClubService {
       const club = await this.clubRepository.create(data)
       return club
     } catch (error) {
-      if (error.code === '23505') {
-        throw new Exception('Club already exists')
-      } else {
         throw new Exception(error.message)
-      }
     }
   }
 
@@ -71,7 +67,7 @@ export default class ClubService {
     }
   }
 
-  async addMemberToClubOld(clubId: number, userId: number) {
+ /* async addMemberToClubOld(clubId: number, userId: number) {
         try {
       const club = await this.clubRepository.findById(clubId)
       if (club) {
@@ -128,5 +124,5 @@ export default class ClubService {
     } catch (error) {
       throw new Exception(error.message)
     }
-  }
+  }*/
 }

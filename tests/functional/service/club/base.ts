@@ -1,6 +1,7 @@
 import Club from '#models/club'
 import User from '#models/user';
 import PortClubRepository from '#repositories/interfaces/club_interface'
+import ClubService from '#services/club_service';
 
 export const fakeClubs = [
     {
@@ -49,5 +50,22 @@ export class FakeClubRepository implements PortClubRepository {
     }
     addMemberToClub(clubId: number, userId: number): Promise<void>{
         return null
+    }
+}
+
+export class FakeClubService implements ClubService {
+    async createClub(data: any) {
+
+    }
+    async getAllClubs() {
+    }
+    async getClubById(id: number) {
+        return fakeClubs[0]
+    }
+    async updateClubById(id: number, data: any) {
+        return fakeClubs[0]
+    }
+
+    async deleteClubById(id: number) {
     }
 }
