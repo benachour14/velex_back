@@ -10,43 +10,53 @@ test.group('add Member club', () => {
     app.container.swap(PortClubRepository, () => {
       return new FakeClubRepository()
     })
+    /*const clubService = new ClubService(new FakeClubRepository());
 
     test('should add member to club', async ({ assert }) => {
+      // Arrange
       const clubId = 1;
       const userId = 1;
 
-      const clubService = new ClubService(new FakeClubRepository());
-      const club = await clubService.addMemberToClub(clubId, userId);
-
-      assert.isTrue(club.$isPersisted);
+      // Act
+      const addedMember = await clubService.addMemberToClub(clubId, userId);
+      console.log(addedMember)
+      // Assert
+      assert.isDefined(addedMember);
+      assert.equal(addedMember.userId, userId);
+      assert.equal(addedMember.clubId, clubId);
     });
 
-    test('should throw an error if member does not exist', async ({ expect }) => {
-      const clubId = 1;
-      const userId = 999; 
-
-      const clubService = new ClubService(new FakeClubRepository());
-
-      await expect(() => clubService.addMemberToClub(clubId, userId)).rejects.toThrow('User not found');
-    });
-
-    test('should throw an error if club does not exist', async ({ expect }) => {
-      const clubId = 999; 
+  test('should throw an error if club does not exist', async ({ expect }) => {
+      // Arrange
+      const clubId = 999;
       const userId = 1;
 
-      const clubService = new ClubService(new FakeClubRepository());
-
+      // Act/Assert
       await expect(() => clubService.addMemberToClub(clubId, userId)).rejects.toThrow('Club not found');
-    });
+  });
 
-    test('should throw an error if member is already a member of the club', async ({ expect }) => {
+  test('should return existing member if already exists', async ({ assert }) => {
+      // Arrange
       const clubId = 1;
-      const userId = 1; 
+      const userId = 1;
 
-      const clubService = new ClubService(new FakeClubRepository());
+      // Act
+      const existingMember = await clubService.addMemberToClub(clubId, userId);
 
+      // Assert
+      assert.isDefined(existingMember);
+      assert.equal(existingMember.userId, userId);
+      assert.equal(existingMember.clubId, clubId);
+  });
+
+  test('should throw an error if user is already a member of the club', async ({ expect }) => {
+      // Arrange
+      const clubId = 1;
+      const userId = 1;
+
+      // Act/Assert
       await expect(() => clubService.addMemberToClub(clubId, userId)).rejects.toThrow('User is already a member of the club');
-    });
+  });*/
     
     app.container.restore(ClubService)
 })

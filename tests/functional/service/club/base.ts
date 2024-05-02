@@ -1,4 +1,5 @@
 import Club from '#models/club'
+import User from '#models/user';
 import PortClubRepository from '#repositories/interfaces/club_interface'
 
 export const fakeClubs = [
@@ -37,9 +38,16 @@ export class FakeClubRepository implements PortClubRepository {
       return (await item) as Club
     }
     delete(id: any): Promise<void | null> {
-      
+      return null
     }
     findById(id: any): Promise<Club | null> {
       return fakeClubs[0]
+    }
+    
+    findMemberByUserId(clubId: number, userId: number): Promise<User | null>{
+        return userId
+    }
+    addMemberToClub(clubId: number, userId: number): Promise<void>{
+        return null
     }
 }
