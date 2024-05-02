@@ -1,10 +1,10 @@
 import { inject } from '@adonisjs/core'
 import Event from '#models/event'
+import PortEventRepository from '#repositories/interfaces/event_interface'
 
 @inject()
 export default class EventService {
-  constructor() {}
-
+  constructor(protected eventRepository: PortEventRepository) {}
   async createEvent(data: any) {
     try {
       const event = await Event.create(data)
