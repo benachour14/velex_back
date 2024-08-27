@@ -1,5 +1,7 @@
 import Club from '#models/club'
+import User from '#models/user';
 import PortClubRepository from '#repositories/interfaces/club_interface'
+import ClubService from '#services/club_service';
 
 export const fakeClubs = [
   {
@@ -27,19 +29,43 @@ export const fakeClubs = [
 ]
 
 export class FakeClubRepository implements PortClubRepository {
-  find(): Promise<Club[]> {
-    return { ...fakeClubs }
-  }
-  async create(item: Partial<Club>): Promise<Club> {
-    return (await item) as Club
-  }
-  async update(id: any, item: Partial<Club>): Promise<Club | null> {
-    return (await item) as Club
-  }
-  delete(id: any): Promise<Club> {
-    return fakeClubs[0]
-  }
-  findById(id: any): Promise<Club | null> {
-    return fakeClubs[0]
-  }
+    find(): Promise<Club[]> {
+        return {...fakeClubs};
+    }
+    async create(item: Partial<Club>): Promise<Club> {
+        return (await item) as Club
+    }
+    async update(id: any, item: Partial<Club>): Promise<Club | null> {
+      return (await item) as Club
+    }
+    delete(id: any): Promise<void | null> {
+      return null
+    }
+    findById(id: any): Promise<Club | null> {
+      return fakeClubs[0]
+    }
+    
+    findMemberByUserId(clubId: number, userId: number): Promise<User | null>{
+        return userId
+    }
+    addMemberToClub(clubId: number, userId: number): Promise<void>{
+        return null
+    }
+}
+
+export class FakeClubService implements ClubService {
+    async createClub(data: any) {
+
+    }
+    async getAllClubs() {
+    }
+    async getClubById(id: number) {
+        return fakeClubs[0]
+    }
+    async updateClubById(id: number, data: any) {
+        return fakeClubs[0]
+    }
+
+    async deleteClubById(id: number) {
+    }
 }

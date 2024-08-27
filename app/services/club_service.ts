@@ -11,11 +11,7 @@ export default class ClubService {
       const club = await this.clubRepository.create(data)
       return club
     } catch (error) {
-      if (error.code === '23505') {
-        throw new Exception('Club already exists')
-      } else {
         throw new Exception(error.message)
-      }
     }
   }
 
@@ -64,13 +60,14 @@ export default class ClubService {
       if (!club) {
         throw new Exception('Club not found')
       }
+      console.log(await this.clubRepository.delete(id))
       return await this.clubRepository.delete(id)
     } catch (error) {
       throw new Exception(error.message)
     }
   }
 
-  async addMemberToClub(clubId: number, userId: number) {
+ /* async addMemberToClubOld(clubId: number, userId: number) {
         try {
       const club = await this.clubRepository.findById(clubId)
       if (club) {
@@ -84,13 +81,31 @@ export default class ClubService {
     } 
   }
 
+  async addMemberToClub(clubId: number, userId: number) {
+    const existingMember = await this.clubRepository.findMemberByUserId(clubId, userId);
+    if (existingMember) {
+      return existingMember;
+    }
+
+    const club = await this.clubRepository.findById(clubId);
+    if (!club) {
+      throw new Error('Club not found');
+    }
+
+    await this.clubRepository.addMemberToClub(clubId, userId);
+
+    const addedMember = await this.clubRepository.findMemberByUserId(clubId, userId);
+    return addedMember;
+  }
+
   async isMemberOfClub(clubId: number, userId: number) {
     try {
       const club = await this.getClubById(clubId)
-      if (club) {
-        const members = await club.related('members').query().where('id', userId).first()
-        return members ? true : false
+      if (!club) {
+        throw new Error('Club not found');
       }
+      const members = await this.clubRepository.findMemberByUserId(clubId, userId);
+        return members 
     } catch (error) {
       throw new Exception(error.message)
     }
@@ -100,7 +115,7 @@ export default class ClubService {
     try {
       const club = await this.getClubById(clubId)
       if (club) {
-        const member = await club.related('members').query().where('id', userId).first()
+        const member = await this.clubRepository.findMemberByUserId(clubId, userId);
         if (member && member.$extras.pivot_role === 'admin') {
           return true
         }
@@ -109,5 +124,5 @@ export default class ClubService {
     } catch (error) {
       throw new Exception(error.message)
     }
-  }
+  }*/
 }

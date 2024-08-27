@@ -14,11 +14,7 @@ export default class UserService {
 
       return user
     } catch (error) {
-      if (error.code === '23505') {
-        throw new Exception('Email already exists')
-      } else {
-        throw new Exception(error.message)
-      }
+      throw new Exception(error.message)
     }
   }
 
@@ -40,23 +36,21 @@ export default class UserService {
 
   async updateUserById(id: number, data: any) {
     let user = await this.userRepository.findById(id)
-    if (!user) throw new Error('User not found')
+    if (!user) throw new Exception('User not found')
     user = await this.userRepository.update(id, data)
     return user
   }
 
   async deleteUserById(id: number) {
     const user = await this.userRepository.findById(id)
-    if (!user) throw new Error('User not found')
+    if (!user) throw new Exception('User not found')
     return await this.userRepository.delete(id)
   }
 
   async getUserById(id: number) {
-    try {
-      return await this.userRepository.findById(id)
-    } catch (error) {
-      throw new Error('User not found')
-    }
+    const user = await this.userRepository.findById(id)
+
+    if (!user) throw new Exception('User not found')
   }
   async getAllUsers() {
     return await this.userRepository.find()
