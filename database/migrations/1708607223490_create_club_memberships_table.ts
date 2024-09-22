@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
       table.integer('club_id').unsigned().references('id').inTable('clubs').onDelete('CASCADE')
       table
-        .enu('role', ['USER', 'ADMIN'], {
+        .enu('role', ['USER', 'MEMBER', 'ADMIN'], {
           useNative: true,
           enumName: 'menber_role',
           existingType: false,

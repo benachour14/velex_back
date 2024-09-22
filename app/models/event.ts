@@ -23,6 +23,9 @@ export default class Event extends BaseModel {
   @column.dateTime()
   declare endDate: DateTime
 
+  @column()
+  declare clubId: number
+
   @belongsTo(() => Club)
   declare club: BelongsTo<typeof Club>
 
