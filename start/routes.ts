@@ -23,7 +23,7 @@ router
         hello: 'world',
       }
     })
-    router.get('/users', [UsersController, 'index'])
+
     clubRoutes()
     userRoutes()
     authRoutes()
