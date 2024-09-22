@@ -24,7 +24,10 @@ export default class Club extends BaseModel {
   declare email: string
 
   @column()
-  declare location: string
+  declare location: object
+
+  @column()
+  declare website: string
 
   @column()
   declare facebook: string

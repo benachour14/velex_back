@@ -12,9 +12,8 @@ export default class extends BaseSchema {
       table.dateTime('start_date').notNullable()
       table.dateTime('end_date')
       table.integer('club_id').unsigned().references('id').inTable('clubs').onDelete('CASCADE')
-
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('created_at', { useTz: true })
+      table.timestamp('updated_at', { useTz: true })
     })
   }
 

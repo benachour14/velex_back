@@ -17,8 +17,8 @@ export default class extends BaseSchema {
         .notNullable()
         .defaultTo('USER')
       table.unique(['user_id', 'club_id'])
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('created_at', { useTz: true })
+      table.timestamp('updated_at', { useTz: true })
     })
   }
 
