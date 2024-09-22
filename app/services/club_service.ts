@@ -11,7 +11,7 @@ export default class ClubService {
       const club = await this.clubRepository.create(data)
       return club
     } catch (error) {
-        throw new Exception(error.message)
+      throw new Exception(error.message)
     }
   }
 
@@ -36,8 +36,22 @@ export default class ClubService {
     }
   }
 
+  async getMemberofClubs(club_id: number) {
+    const club = await this.getClubById(club_id)
+
+    this.clubRepository.getMemberOfCLubs(club)
+
+    return club
+  }
+
+  async eventsOfClubs(club_id: number) {
+    const club = await this.getClubById(club_id)
+    await this.clubRepository.getEventOfCLubs(club)
+
+    return club.events
+  }
+
   async updateClubById(id: number, data: any) {
-    
     try {
       let club = await this.clubRepository.findById(id)
       if (!club) {
@@ -67,7 +81,7 @@ export default class ClubService {
     }
   }
 
- /* async addMemberToClubOld(clubId: number, userId: number) {
+  /* async addMemberToClubOld(clubId: number, userId: number) {
         try {
       const club = await this.clubRepository.findById(clubId)
       if (club) {

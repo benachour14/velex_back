@@ -19,8 +19,8 @@ export default class ClubRepository implements PortClubRepository {
   async delete(id: number): Promise<void | null> {
     const club = await Club.find(id)
     if (club) {
-       await club.delete()
-       return null
+      await club.delete()
+      return null
     }
     return null
   }
@@ -28,7 +28,7 @@ export default class ClubRepository implements PortClubRepository {
   async findById(id: number): Promise<Club | null> {
     const club = await Club.find(id)
     if (club) {
-      await club.load('members');
+      await club.load('members')
       return club
     }
     return null
@@ -39,22 +39,29 @@ export default class ClubRepository implements PortClubRepository {
   }
 
   async findMemberByUserId(clubId: number, userId: number): Promise<User | null> {
-    const club = await Club.find(clubId);
+    const club = await Club.find(clubId)
     if (!club) {
-      return null; 
+      return null
     }
 
-    const member = await club.related('members').query().where('user_id', userId).first();
+    const member = await club.related('members').query().where('user_id', userId).first()
     if (!member) {
-      return null; 
+      return null
     }
 
-    return member;
+    return member
+  }
+
+  async getMemberOfCLubs(club: Club): Promise<any> {
+    return await club.load('members')
+  }
+
+  async getEventOfCLubs(club: Club): Promise<any> {
+    return await club.load('events')
   }
 
   async addMemberToClub(clubId: number, userId: number): Promise<void> {
-    const club = await Club.findOrFail(clubId);
-    await club.related('members').attach([userId]);
+    const club = await Club.findOrFail(clubId)
+    await club.related('members').attach([userId])
   }
-
 }

@@ -7,6 +7,7 @@ export default function clubRoutes() {
   router
     .group(() => {
       router.get('/', [ClubsController, 'index']) // Afficher tous les clubs
+      router.get('/:id/events', [ClubsController, 'listOfEvents']) // Get a list of all events
       router.get('/:id', [ClubsController, 'show']) // Afficher un club individuel
     })
     .prefix('/clubs')
