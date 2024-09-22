@@ -13,8 +13,14 @@ export const eventValidator = vine.compile(
       latitude: vine.number().nullable(),
       longitude: vine.number().nullable(),
     }),
-    startDate: vine.date(),
-    endDate: vine.date().optional(),
+    startDate: vine.date({
+      formats: ['YYYY-MM-DD HH:mm'],
+    }),
+    endDate: vine
+      .date({
+        formats: ['YYYY-MM-DD HH:mm'],
+      })
+      .optional(),
     clubId: vine.number(),
   })
 )
