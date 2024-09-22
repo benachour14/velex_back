@@ -14,7 +14,7 @@ export default class extends BaseSeeder {
         title: 'Annual Sports Tournament',
         description: 'Join us for our annual sports tournament',
         location: {
-          venueName: 'City Stadium',
+          street: 'City Stadium',
           address: '789 Stadium Rd',
           city: 'Sportsville',
           state: 'SP',
