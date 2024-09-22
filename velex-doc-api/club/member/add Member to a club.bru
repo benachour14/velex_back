@@ -1,0 +1,40 @@
+meta {
+  name: add Member to a club
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/clubs/9/members
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "memberId": "1"
+  }
+}
+
+script:pre-request {
+  // You can add any pre-request logic here
+}
+
+script:post-response {
+  // You can add any post-response logic here
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(response.status).to.equal(200);
+  });
+  
+  test("Response has member details", function() {
+    expect(response.body).to.have.property('memberId');
+    expect(response.body).to.have.property('clubId');
+  });
+}

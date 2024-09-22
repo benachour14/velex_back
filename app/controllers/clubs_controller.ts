@@ -73,4 +73,49 @@ export default class ClubsController {
       return { error: error }
     }
   }
+
+  async addMember({ params, request, response }: HttpContext) {
+    const { memberId } = request.all()
+    if (!memberId) return response.badRequest('User ID is required')
+
+    try {
+      const result = await this.clubService.addMemberToClub(params.id, memberId)
+      if (result)
+        return response.ok({
+          ...result,
+          msg: 'New Member added',
+        })
+    } catch (error) {
+      return { error: error }
+    }
+  }
+
+  async updateRoleMember({ params, request, response }: HttpContext) {
+    const { memberIds, newRole } = request.all()
+    if (!memberIds || !Array.isArray(memberIds) || !newRole)
+      return response.badRequest('Members array and new role are required')
+
+    try {
+      const result = await this.clubService.updateMembersRole(params.id, memberIds, newRole)
+      return response.ok({ msg: 'Role of memberIds were updated' })
+    } catch (error) {
+      console.log(error)
+      return response.notAcceptable({ msg: 'Failed to update members role from club' })
+    }
+  }
+
+  async removeMember({ params, request, response }: HttpContext) {
+    const { memberIds } = request.all()
+    if (!memberIds || !Array.isArray(memberIds))
+      return response.badRequest('User IDs array is required')
+
+    try {
+      const results = await Promise.all(
+        memberIds.map((memberId) => this.clubService.removeMemberFromClub(params.id, memberId))
+      )
+      return { success: true, results }
+    } catch (error) {
+      return response.notAcceptable({ msg: 'Failed to remove member from club' })
+    }
+  }
 }

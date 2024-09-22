@@ -113,7 +113,35 @@ export default class ClubService {
     await this.clubRepository.addMemberToClub(clubId, userId)
 
     const addedMember = await this.clubRepository.findMemberByUserId(clubId, userId)
-    return addedMember
+    const role = addedMember?.$extras.pivot_role
+    return {
+      memberId: addedMember?.id,
+      role,
+    }
+  }
+  async updateMembersRole(clubId: number, memberIds: number[], newRole: string) {
+    try {
+      const club = await this.getClubById(clubId)
+      if (!club) {
+        throw new Exception('Club not found')
+      }
+
+      const updatedMembers = []
+
+      for (const memberId of memberIds) {
+        const member = await this.clubRepository.findMemberByUserId(clubId, memberId)
+        if (!member) {
+          throw new Exception(`Member with ID ${memberId} not found in this club`)
+        }
+
+        await this.clubRepository.updateMemberRole(clubId, memberId, newRole)
+        updatedMembers.push(await this.clubRepository.findMemberByUserId(clubId, memberId))
+      }
+
+      return updatedMembers
+    } catch (error) {
+      throw new Exception(error.message)
+    }
   }
 
   async isMemberOfClub(clubId: number, userId: number) {
@@ -139,6 +167,25 @@ export default class ClubService {
         }
         return false
       }
+    } catch (error) {
+      throw new Exception(error.message)
+    }
+  }
+  async removeMemberFromClub(clubId: number, userId: number) {
+    try {
+      const club = await this.getClubById(clubId)
+      if (!club) {
+        throw new Exception('Club not found')
+      }
+
+      const member = await this.clubRepository.findMemberByUserId(clubId, userId)
+      if (!member) {
+        throw new Exception('Member not found in this club')
+      }
+
+      await this.clubRepository.removeMemberFromClub(clubId, userId)
+
+      return true
     } catch (error) {
       throw new Exception(error.message)
     }

@@ -64,4 +64,13 @@ export default class ClubRepository implements PortClubRepository {
     const club = await Club.findOrFail(clubId)
     await club.related('members').attach([userId])
   }
+
+  async removeMemberFromClub(clubId: number, userId: number): Promise<void> {
+    const club = await Club.findOrFail(clubId)
+    await club.related('members').detach([userId])
+  }
+  async updateMemberRole(clubId: number, userId: number, role: string): Promise<void> {
+    const club = await Club.findOrFail(clubId)
+    await club.related('members').pivotQuery().where('user_id', userId).update({ role })
+  }
 }
