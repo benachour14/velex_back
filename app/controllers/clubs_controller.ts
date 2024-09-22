@@ -36,12 +36,17 @@ export default class ClubsController {
     }
   }
 
-  async create({ request }: HttpContext) {
+  async create({ request, response, auth }: HttpContext) {
     const data = request.all()
     const payload = await clubValidator.validate(data)
 
+    const user = auth?.user
+    if (!user) return response.forbidden('You need to be authenticated')
     try {
       const club = await this.clubService.createClub(payload)
+
+      // add the user that created the club as admin member
+      await this.clubService.addCreatorOfClub(club.id, user.id)
       return club
     } catch (error) {
       return { error: error }

@@ -81,45 +81,49 @@ export default class ClubService {
     }
   }
 
-  /* async addMemberToClubOld(clubId: number, userId: number) {
-        try {
+  async addCreatorOfClub(clubId: number, userId: number) {
+    try {
       const club = await this.clubRepository.findById(clubId)
       if (club) {
-        await club.related('members').attach([userId])
+        await club.related('members').attach({
+          [userId]: {
+            role: 'ADMIN',
+          },
+        })
         return club
       } else {
         throw new Exception('Club not found')
       }
     } catch (error) {
       throw new Exception(error.message)
-    } 
+    }
   }
 
   async addMemberToClub(clubId: number, userId: number) {
-    const existingMember = await this.clubRepository.findMemberByUserId(clubId, userId);
+    const existingMember = await this.clubRepository.findMemberByUserId(clubId, userId)
     if (existingMember) {
-      return existingMember;
+      return existingMember
     }
 
-    const club = await this.clubRepository.findById(clubId);
+    const club = await this.clubRepository.findById(clubId)
     if (!club) {
-      throw new Error('Club not found');
+      throw new Error('Club not found')
     }
 
-    await this.clubRepository.addMemberToClub(clubId, userId);
+    await this.clubRepository.addMemberToClub(clubId, userId)
 
-    const addedMember = await this.clubRepository.findMemberByUserId(clubId, userId);
-    return addedMember;
+    const addedMember = await this.clubRepository.findMemberByUserId(clubId, userId)
+    return addedMember
   }
 
   async isMemberOfClub(clubId: number, userId: number) {
     try {
       const club = await this.getClubById(clubId)
       if (!club) {
-        throw new Error('Club not found');
+        throw new Error('Club not found')
       }
-      const members = await this.clubRepository.findMemberByUserId(clubId, userId);
-        return members 
+      const members = await this.clubRepository.findMemberByUserId(clubId, userId)
+      return members
     } catch (error) {
       throw new Exception(error.message)
     }
@@ -129,7 +133,7 @@ export default class ClubService {
     try {
       const club = await this.getClubById(clubId)
       if (club) {
-        const member = await this.clubRepository.findMemberByUserId(clubId, userId);
+        const member = await this.clubRepository.findMemberByUserId(clubId, userId)
         if (member && member.$extras.pivot_role === 'admin') {
           return true
         }
@@ -138,5 +142,5 @@ export default class ClubService {
     } catch (error) {
       throw new Exception(error.message)
     }
-  }*/
+  }
 }
