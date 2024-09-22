@@ -10,7 +10,7 @@ export default class UsersController {
 
   async index({ bouncer, response }: HttpContext) {
     if (await bouncer.with(UserPolicy).denies('list')) {
-      return response.forbidden('Cannot see the list of users')
+      return response.forbidden('You dont have the right. Cannot see the list of users')
     }
     const users = await this.userService.getAllUsers()
     return response.json(users)

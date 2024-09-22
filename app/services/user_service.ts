@@ -51,6 +51,8 @@ export default class UserService {
     const user = await this.userRepository.findById(id)
 
     if (!user) throw new Exception('User not found')
+
+    return user
   }
   async getAllUsers() {
     return await this.userRepository.find()
