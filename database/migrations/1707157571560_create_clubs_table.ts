@@ -13,7 +13,7 @@ export default class extends BaseSchema {
       table.string('email').nullable()
       table.string('facebook').nullable()
       table.string('twitter').nullable()
-      table.string('location').nullable()
+      table.jsonb('location').nullable()
       table.timestamp('updated_at')
     })
   }
