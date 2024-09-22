@@ -5,6 +5,7 @@ export const eventValidator = vine.compile(
     title: vine.string().trim().minLength(3).maxLength(255).nullable(),
     description: vine.string().trim().optional().nullable(),
     location: vine.object({
+      street: vine.string().nullable(),
       city: vine.string().nullable(),
       country: vine.string().nullable(),
       state: vine.string().nullable(),
@@ -12,8 +13,8 @@ export const eventValidator = vine.compile(
       latitude: vine.number().nullable(),
       longitude: vine.number().nullable(),
     }),
-    start_date: vine.date(),
-    end_date: vine.date().optional(),
-    club_id: vine.number(),
+    startDate: vine.date(),
+    endDate: vine.date().optional(),
+    clubId: vine.number(),
   })
 )
