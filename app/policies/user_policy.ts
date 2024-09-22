@@ -14,4 +14,17 @@ export default class UserPolicy extends BasePolicy {
   create(user: User): AuthorizerResponse {
     return true
   }
+
+  update(user: User, idToUpdate: number): AuthorizerResponse {
+    const admin = user.role === 'ADMIN'
+    return user.id === idToUpdate || admin
+  }
+
+  delete(user: User, idDeleted: number): AuthorizerResponse {
+    console.log('1')
+    // console.log(user)
+    const admin = user.role === 'ADMIN'
+
+    return user.id === idDeleted || admin
+  }
 }

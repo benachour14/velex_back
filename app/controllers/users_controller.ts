@@ -28,14 +28,23 @@ export default class UsersController {
     return response.json(userToShow)
   }
 
-  async delete({ params, response }: HttpContext) {
+  async delete({ bouncer, params, response }: HttpContext) {
     const user = await this.userService.deleteUserById(params.id)
+
+    if (await bouncer.with(UserPolicy).denies('delete', params.id)) {
+      return response.forbidden('Cannot deleta others users')
+    }
     return response.json(user)
   }
 
-  async update({ params, request, response }: HttpContext) {
+  async update({ bouncer, params, request, response }: HttpContext) {
     const data = request.all()
     const user = await this.userService.updateUserById(params.id, data)
+
+    if (await bouncer.with(UserPolicy).denies('update', params.id)) {
+      return response.forbidden('Cannot update other users')
+    }
+
     return response.json(user)
   }
 }
