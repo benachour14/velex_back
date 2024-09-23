@@ -49,11 +49,15 @@ export default class ClubsController {
       await this.clubService.addCreatorOfClub(club.id, user.id)
       return club
     } catch (error) {
-      return { error: error }
+      return response.internalServerError({
+        message: 'Failed to create club',
+        error: error.message,
+        stack: error.stack,
+      })
     }
   }
 
-  async update({ params, request }: HttpContext) {
+  async update({ params, request,response }: HttpContext) {
     const data = request.all()
     const payload = await clubValidator.validate(data)
 
@@ -61,16 +65,24 @@ export default class ClubsController {
       const club = await this.clubService.updateClubById(params.id, payload)
       return club
     } catch (error) {
-      return { error: error }
+      return response.internalServerError({
+        message: 'Failed to update club',
+        error: error.message,
+        stack: error.stack,
+      })
     }
   }
 
-  async destroy({ params }: HttpContext) {
+  async destroy({ params,response }: HttpContext) {
     try {
       await this.clubService.deleteClubById(params.id)
       return { success: true }
     } catch (error) {
-      return { error: error }
+      return response.internalServerError({
+        message: 'Failed to destroy club',
+        error: error.message,
+        stack: error.stack,
+      })
     }
   }
 
@@ -86,7 +98,11 @@ export default class ClubsController {
           msg: 'New Member added',
         })
     } catch (error) {
-      return { error: error }
+      return  response.internalServerError({
+        message: 'Failed to destroy club',
+        error: error.message,
+        stack: error.stack,
+      })
     }
   }
 
