@@ -8,13 +8,12 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('title').notNullable()
       table.text('description').notNullable()
-      table.string('location').notNullable()
+      table.jsonb('location')
       table.dateTime('start_date').notNullable()
       table.dateTime('end_date')
       table.integer('club_id').unsigned().references('id').inTable('clubs').onDelete('CASCADE')
-
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('created_at', { useTz: true })
+      table.timestamp('updated_at', { useTz: true })
     })
   }
 

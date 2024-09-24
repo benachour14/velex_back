@@ -1,0 +1,17 @@
+meta {
+  name: remove Member of club
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/clubs/9/members
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "memberIds":[1]
+  }
+}

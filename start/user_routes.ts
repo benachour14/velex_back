@@ -5,6 +5,7 @@ import { middleware } from '#start/kernel'
 export default function authRoutes() {
   router
     .group(() => {
+      router.get('/', [UsersController, 'index'])
       router.get('/:id', [UsersController, 'show']) // register new user
       router.put('/:id', [UsersController, 'update']) // register new user
       router.delete('/:id', [UsersController, 'delete']) // register new user

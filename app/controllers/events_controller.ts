@@ -3,6 +3,7 @@ import EventService from '#services/event_service'
 import { eventValidator } from '#validators/event_validator'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
+import { DateTime } from 'luxon'
 
 @inject()
 export default class EventsController {
@@ -23,15 +24,29 @@ export default class EventsController {
     return response.json(event)
   }
 
-  async create({ bouncer, request, response }: HttpContext) {
+  async create({ request }: HttpContext) {
     const data = await eventValidator.validate(request.all())
-
-    if (await bouncer.with(EventPolicy).denies('create', data.club_id)) {
-      return response.forbidden('Cannot create this event')
+    // Transform dates to Luxon DateTime
+    if (data) {
+      if (data.startDate) {
+        data.startDate = DateTime.fromJSDate(data.startDate)
+      }
+      if (data.endDate) {
+        data.endDate = DateTime.fromJSDate(data.endDate)
+      } // You can perform additional date validations here if needed
+      if (data.endDate && data.startDate > data.endDate) {
+        return response.status(422).json({ error: 'End date must be after start date' })
+      }
     }
 
-    const event = await this.eventService.createEvent(data)
-    return response.created(event)
+    try {
+      const event = await this.eventService.createEvent(data)
+      return event
+    } catch (error) {
+      console.log('error', error)
+
+      return { error: error }
+    }
   }
 
   async update({ bouncer, params, response }: HttpContext) {

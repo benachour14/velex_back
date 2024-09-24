@@ -11,10 +11,12 @@ export default class extends BaseSchema {
       table.string('description').nullable()
       table.string('phone').nullable()
       table.string('email').nullable()
+      table.string('website').nullable()
       table.string('facebook').nullable()
       table.string('twitter').nullable()
-      table.string('location').nullable()
-      table.timestamp('updated_at')
+      table.jsonb('location').nullable()
+      table.timestamp('created_at', { useTz: true })
+      table.timestamp('updated_at', { useTz: true })
     })
   }
 

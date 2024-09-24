@@ -1,58 +1,60 @@
 import { inject } from '@adonisjs/core'
-import User from '#models/user'
+import PortUserRepository from '#repositories/interfaces/user_interface'
+import { Exception } from '@adonisjs/core/exceptions'
 
 @inject()
 export default class UserService {
-  constructor() {}
+  constructor(protected userRepository: PortUserRepository) {}
 
   async createUser(data: any) {
     try {
-      const user = await User.create(data)
+      const user = await this.userRepository.create(data)
 
       //send a mail through a mail service
 
       return user
     } catch (error) {
-      if (error.code === '23505') {
-        return { error: 'Email already exists' }
-      } else return { error: error }
+      throw new Exception(error.message)
     }
   }
 
   async login(data: any) {
-    const user = await User.verifyCredentials(data.email, data.password)
+    if (!data.email || !data.password) throw new Exception('Email and password are required')
+    const user = await this.userRepository.verifyCredentials(data.email, data.password)
 
     if (!user) {
-      return { error: 'Invalid credentials' }
+      throw new Exception('Invalid credentials')
     }
 
-    const token = await User.accessTokens.create(user)
+    const token = await this.userRepository.createToken(user)
 
     return {
       type: 'bearer',
-      value: token.value!.release(),
+      value: token,
     }
   }
 
   async updateUserById(id: number, data: any) {
-    const user = await User.find(id)
-    user?.merge(data)
-    return await user?.save()
+    let user = await this.userRepository.findById(id)
+    if (!user) throw new Exception('User not found')
+    user = await this.userRepository.update(id, data)
+    return user
   }
 
   async deleteUserById(id: number) {
-    const user = await User.find(id)
-    return await user?.delete()
+    const user = await this.userRepository.findById(id)
+    if (!user) throw new Exception('User not found')
+    return await this.userRepository.delete(id)
   }
 
   async getUserById(id: number) {
-    try {
-      return await User.find(id)
-    } catch (error) {
-      throw new Error('User not found')
-    }
+    const user = await this.userRepository.findById(id)
+
+    if (!user) throw new Exception('User not found')
+
+    return user
   }
   async getAllUsers() {
-    return await User.all()
+    return await this.userRepository.find()
   }
 }

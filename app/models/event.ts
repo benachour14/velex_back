@@ -1,5 +1,5 @@
-import { BaseModel, column, hasOne, manyToMany } from '@adonisjs/lucid/orm'
-import type { HasOne, ManyToMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, belongsTo, column, hasOne, manyToMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasOne, ManyToMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import Club from '#models/club'
 import User from '#models/user'
@@ -15,7 +15,7 @@ export default class Event extends BaseModel {
   declare description: string
 
   @column()
-  declare location: string
+  declare location: object
 
   @column.dateTime()
   declare startDate: DateTime
@@ -23,8 +23,11 @@ export default class Event extends BaseModel {
   @column.dateTime()
   declare endDate: DateTime
 
-  @hasOne(() => Club)
-  declare club: HasOne<typeof Club>
+  @column()
+  declare clubId: number
+
+  @belongsTo(() => Club)
+  declare club: BelongsTo<typeof Club>
 
   @manyToMany(() => User, {
     pivotTable: 'event_participants',
