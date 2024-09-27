@@ -10,7 +10,7 @@ export default class AuthController {
   /**
    * register new user
    */
-  async register({ request }: HttpContext) {
+  async register({ request, response }: HttpContext) {
     const data = request.all()
     const payload = await authValidator.validate(data)
 
@@ -18,6 +18,7 @@ export default class AuthController {
       const user = await this.userService.createUser(payload)
       return user
     } catch (error) {
+      response.status(400)
       return { error: error }
     }
   }
@@ -26,7 +27,7 @@ export default class AuthController {
    * login user
    */
 
-  async login({ request }: HttpContext) {
+  async login({ request, response }: HttpContext) {
     const data = request.all()
     const payload = await loginValidator.validate(data)
     try {
@@ -34,6 +35,7 @@ export default class AuthController {
 
       return user
     } catch (error) {
+      response.status(400)
       return { error: error }
     }
   }
